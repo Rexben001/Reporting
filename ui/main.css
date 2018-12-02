@@ -1,75 +1,76 @@
+/*Remove spaces automatically added by the browser*/
 *{
     margin: 0;
-        padding: 0;
-        border: 0;
-        outline: 0;
-        font-size: 100%;
-        vertical-align: baseline;
-        background: transparent;
+    padding: 0;
+    outline: 0;
 }
+
+/*Background image*/
 header{
-    margin: 0;
-background: url(./home.jpg);
-height: 100vh;
-background-repeat: no-repeat;
+    background: url(./home.jpg);
+    height: 100vh;
 }
+
 .overlay{
-    width: inherit;
     height: inherit;
-    background: rgba(0, 0, 0, 0.8)
-}
-ul{
-    width: 100%;
-    top: 0;
-    right: 0;
-    padding: 30px;
-    /* background: rgba(255, 123, 23, 0.3); */
-
-}
- 
-ul li{
-    display: inline;
-    padding: 20px 20px;
-    text-align: right;
+    width: inherit;
+    /* filter: rgba(0, 0, 0, 0.6); */
 }
 
-ul li a:hover{
+.bar{
+    overflow: hidden;
     background: black;
-    color: white;
 }
-
-a{
+.bar a{
+    display: block;
+    float: left;
+    padding: 14px 16px;
+    color: white;
     text-decoration: none;
     font-size: 1.5rem;
-    color: white
-}
-.home{
-margin-left: 10%;
-padding-right: 40%;
+    margin: 0 1.5rem;
 }
 
-.active{
+/*First child/ first element*/
+.bar a:first-child{
+    margin-right: 40%;
+    margin-left: 6.0rem;
+}
+
+.bar .active{ 
     display: none;
 }
 
+/**/
 @media screen and (max-width: 600px){
-
-    body{
-        width: 100%;
-    }
-
-    ul a{
+    .bar a:not(:first-child){
         display: none;
     }
-    .active{
-        display: inline;
+    .bar a:first-child{
+        margin-right: 0%;
+        margin-left: 1.0rem;
     }
-    .home{
-        margin-left: 10px;
+    .bar a.active {
+        display: block;
+        float: right;
     }
-    .home-a{
-        display: inline;
-        margin-left: 0px;
+}
+/*Display the menu in block format
+*This works directly with the js file
+*/
+@media screen and (max-width: 600px){
+    .bar .responsive{
+        position: relative;
     }
 
+    .bar.responsive .active{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .bar.responsive a{
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
