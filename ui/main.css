@@ -12,14 +12,17 @@ header{
 }
 
 .overlay{
+    background: rgb(0, 0, 0); 
+    background: rgba(0, 0, 0, 0.4);
+    color: #f1f1f1;
     height: inherit;
     width: inherit;
-    /* filter: rgba(0, 0, 0, 0.6); */
 }
 
 .bar{
     overflow: hidden;
     background: black;
+    background: rgba(0,0,0,0.8)
 }
 .bar a{
     display: block;
@@ -40,7 +43,17 @@ header{
 .bar .active{ 
     display: none;
 }
-
+.reporting{
+    margin: 30px;
+    text-align: center;
+position: sticky}
+h3{
+    font-size: 4.0rem;
+}
+.details{
+    font-size: 2.0rem;
+    padding: 10px 100px;    
+}
 /**/
 @media screen and (max-width: 600px){
     .bar a:not(:first-child){
@@ -53,6 +66,9 @@ header{
     .bar a.active {
         display: block;
         float: right;
+    }
+    h3{
+        font-size: 3.0rem
     }
 }
 /*Display the menu in block format
@@ -72,5 +88,10 @@ header{
         float: none;
         display: block;
         text-align: left;
-    }
+        color: #f1f1f1;
+        }
+        .bar{
+            background: rgb(0, 0, 0); 
+            background: rgba(0, 0, 0, 0.4);
+        }
 }
