@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+}
+header{
+    margin: 0;
+background: url(./home.jpg);
+height: 100vh;
+background-repeat: no-repeat;
+}
+.overlay{
+    width: inherit;
+    height: inherit;
+    background: rgba(0, 0, 0, 0.8)
+}
+ul{
+    width: 100%;
+    top: 0;
+    right: 0;
+    padding: 30px;
+    background: rgba(255, 123, 23, 0.3);
+    box-shadow: rgba(0, 0, 0, 0.3)
+}
+ 
+ul li{
+    display: inline;
+    padding: 20px 50px;
+    text-align: right;
+}
+
+a{
+    text-decoration: none;
+}
+.home{
+margin-left: 10%;
+padding-right: 30%;
+}
