@@ -7,7 +7,7 @@
 
 /*Background image*/
 header{
-    background: url(./home.jpg);
+    background: url(../img/home.jpg);
     height: 100vh;
     position: relative;
 }
@@ -142,6 +142,14 @@ section{
 
 }
 
+.container{
+    background: #cccaca;
+}
+
+.container h4{
+font-size: 1.7rem;
+
+margin-bottom: 40px;}
 
 footer{
     height: 30px;

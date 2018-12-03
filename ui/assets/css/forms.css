@@ -1,0 +1,47 @@
+.signup-form{
+    margin: 60px auto;
+    width: 40%;
+    box-sizing: border-box;
+}
+
+label{
+    display: block;
+    font-size: 1.5rem;
+    padding: 10px 20px 5px;
+    text-align: left;
+    font-weight: 300
+}
+
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=password]{
+    padding: 10px;
+    width: 90%;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 1.0rem;
+    font-weight: 500;
+}
+
+input[type=button]{
+    color: white;
+    background: blue;
+    padding: 10px;
+    margin-top: 30px;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 95%;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 600px){
+    
+    .signup-form{
+        margin: 60px auto;
+        width: 90%;
+        box-sizing: border-box;
+    }
+}
