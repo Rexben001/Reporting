@@ -1,5 +1,5 @@
 .signup-form{
-    margin: 60px auto;
+    margin: 50px auto 150px;
     width: 40%;
     box-sizing: border-box;
 }
@@ -35,7 +35,12 @@ input[type=button]{
     font-size: 1.5rem;
     cursor: pointer;
 }
-
+.have-account{
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: black
+}
 
 @media screen and (max-width: 600px){
     
