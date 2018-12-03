@@ -7,7 +7,7 @@
 
 /*Background image*/
 header{
-    background: url(./home.jpg);
+    background: url(../img/home.jpg);
     height: 100vh;
     position: relative;
 }
