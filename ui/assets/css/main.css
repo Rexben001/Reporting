@@ -33,11 +33,11 @@ header{
 .bar a{
     display: block;
     float: left;
-    padding: 14px 16px;
+    padding: 10px 12px;
     color: white;
     text-decoration: none;
-    font-size: 1.5rem;
-    margin: 0 1.5rem;
+    font-size: 1.3rem;
+    margin: 0 1.2rem;
 }
 
 /*First child/ first element*/
