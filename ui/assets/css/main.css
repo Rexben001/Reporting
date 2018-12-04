@@ -208,6 +208,17 @@ margin-bottom: 50px;}
     float: right;
     margin: 0 auto 70px;
 }
+#popup{
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    text-align: center;
+    /* margin: auto; */
+    z-index: 100000;
+    background: #cccaca
+}
+
 footer{
     height: 30px;
     background: black;
