@@ -219,6 +219,18 @@ margin-bottom: 50px;}
     background: #cccaca
 }
 
+.overlay-popup .over{
+    display: block;
+    height: inherit;
+    width: 100%;
+    filter: blur(2px);
+}
+#overlay-pop{
+    display: block;
+    height: inherit;
+    width: 100%;
+
+}
 footer{
     height: 30px;
     background: black;
