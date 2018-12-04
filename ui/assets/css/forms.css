@@ -42,6 +42,8 @@ input[type=button]{
     color: black
 }
 
+/*Table styling*/
+
 @media screen and (max-width: 600px){
     
     .signup-form{
