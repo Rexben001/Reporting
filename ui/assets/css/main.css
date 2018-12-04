@@ -155,6 +155,38 @@ section{
 font-size: 1.7rem;
 margin-bottom: 50px;}
 
+.profile{
+    width: 30%;
+    background: white;
+    padding: 20px;
+}
+
+.total h5{
+font-size: 1.5rem;
+}
+.profile >.image{
+    margin:auto;
+}
+.profile img{
+    height: 150px;
+    width: 150px;
+    border-radius: 240px;
+    background: #cccaca;
+    color: #fffffa;
+    text-align: center;
+    margin: 30px 0;
+}
+.user-info{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.grid-block-profile{
+    display: grid;    
+    grid-template-columns: repeat(3, 1fr);
+    /* spaces in between the grids */
+    grid-gap: 20px;
+}
 footer{
     height: 30px;
     background: black;
