@@ -155,15 +155,19 @@ section{
 font-size: 1.7rem;
 margin-bottom: 50px;}
 
+.profile-section{
+    margin: 50px 10px 50px;
+}
 .profile{
     width: 25%;
     background: white;
     padding: 20px;
+    float: left;
 }
 
 .total h5{
     margin-top: 20px;
-font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 .profile >.image{
     margin:auto;
@@ -198,11 +202,18 @@ font-size: 1.5rem;
 .grid-block-profile .status{
     line-height: 0.4;
 }
+
+.show-reports{
+    width: 68%;
+    float: right;
+    margin: 0 auto 70px;
+}
 footer{
     height: 30px;
     background: black;
     background: rgba(0,0,0,0.8);
     margin: 0 auto;
+    clear: both;
     }
 
 footer p{
@@ -235,12 +246,12 @@ footer p{
 */
 @media screen and (max-width: 600px){
 
-    /* body{
+    body{
         width: 100%
-    } */
+    }
     .bar .responsive{
         position: absolute;
-        z-index: 1;
+        /* z-index: 1; */
     }
 
     .bar.responsive .active{
@@ -253,6 +264,7 @@ footer p{
         display: block;
         text-align: left;
         color: #f1f1f1;
+        border-bottom: #f3e4e4 1px solid;
         }
         .bar{
             background: rgb(0, 0, 0); 
@@ -274,4 +286,53 @@ footer p{
         .status{
             font-size: 1.5rem
         }
+
+        
+        .profile{
+            width: 90%;
+        }
+        .total h5{
+            margin-top: 10px;
+            font-size: 1.0rem;
+        }
+        .profile >.image{
+            margin:auto;
+        }
+        .profile img{
+            height: 120px;
+            width: 120px;
+            border-radius: 200px;
+            background: #cccaca;
+            color: #fffffa;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .user-info{
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        
+        .grid-block-profile{
+            display: grid;    
+            grid-template-columns: repeat(1, 1fr);
+            /* spaces in between the grids */
+            grid-gap: 20px;
+        }
+        
+        .grid-block-profile span,
+        .grid-block-profile .status{
+            font-size: 1.0rem;
+            font-weight: 600;
+        }
+        
+        .grid-block-profile .status{
+            line-height: 0.2;
+        }
+        
+        .show-reports{
+            width: 100%;
+            margin: 40px auto 70px;
+            overflow-x: auto;
+        }
+        
 }
