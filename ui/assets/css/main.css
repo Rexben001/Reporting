@@ -216,20 +216,18 @@ margin-bottom: 50px;}
     text-align: center;
     /* margin: auto; */
     z-index: 100000;
-    background: #cccaca
-}
+width: 30%;}
 
-.overlay-popup .over{
+.overlay-popup{
     display: block;
     height: inherit;
     width: 100%;
     filter: blur(2px);
 }
-#overlay-pop{
+.overlay-pops{
     display: block;
     height: inherit;
     width: 100%;
-
 }
 footer{
     height: 30px;

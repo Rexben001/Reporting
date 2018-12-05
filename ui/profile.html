@@ -28,7 +28,7 @@
    <section class="profile-section">
        <div class="profile">
            <div class="image">
-               <img src="./assets//img/home.jpg" alt=""> 
+               <img src="./assets/img/home.jpg" alt=""> 
            </div>
            <div class="user-info">
                <h5>Rex Ben</h5>
@@ -54,7 +54,7 @@
            </div>
        </div>
        <div class="show-reports">
-           <div id="overlay-pop" class="overlay-popup">
+           <div id="overlay-pop" class="overlay-pops">
 <table>
     <tr>
     <th>S/N</th>
@@ -119,14 +119,13 @@
 
    <div id="popup">
        <form action="">
-            <label for="email">Email Address</label>
-                <input type="email" id="email">
-                <label for="password">Password</label>
-                <input type="password" id="password">
+            <label for="location">Location</label>
+                <input type="text" id="location" required>
+                <label for="status">Status</label>
+                <input type="text" id="status" required>
                 <br>
-                <input type="button" value="Sign in">
+                <input type="button" value="Save" id="save">
             </form>
-            <p class="have-account"><a href="signup.html">Don't have an account? Sign up here</a></p>
    </div>
     <footer>
             <p>&copy; Reporting Inc. 2018</p>
