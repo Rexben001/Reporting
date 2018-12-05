@@ -10,6 +10,10 @@ a{
     color: inherit;
 }
 
+a:hover{
+    color: rgba(0, 0, 0, 0.4);
+}
+
 /*Background image*/
 header{
     background: url(../img/home.jpg);
@@ -18,7 +22,7 @@ header{
 }
 
 .overlay{
-    background: rgb(0, 0, 0); 
+    /* background: rgb(0, 0, 0);  */
     background: rgba(0, 0, 0, 0.4);
     color: #f1f1f1;
     height: inherit;
@@ -33,11 +37,11 @@ header{
 .bar a{
     display: block;
     float: left;
-    padding: 14px 16px;
+    padding: 10px 12px;
     color: white;
     text-decoration: none;
-    font-size: 1.5rem;
-    margin: 0 1.5rem;
+    font-size: 1.3rem;
+    margin: 0 1.2rem;
 }
 
 /*First child/ first element*/
@@ -155,11 +159,86 @@ section{
 font-size: 1.7rem;
 margin-bottom: 50px;}
 
+.profile-section{
+    margin: 50px 10px 50px;
+}
+.profile{
+    width: 25%;
+    background: white;
+    padding: 20px;
+    float: left;
+}
+
+.total h5{
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+.profile >.image{
+    margin:auto;
+}
+.profile img{
+    height: 150px;
+    width: 150px;
+    border-radius: 240px;
+    background: #b87272;
+    color: #fffffa;
+    text-align: center;
+    margin: 30px 0;
+}
+.user-info{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.grid-block-profile{
+    display: grid;    
+    grid-template-columns: repeat(3, 1fr);
+    /* spaces in between the grids */
+    grid-gap: 20px;
+}
+
+.grid-block-profile span,
+.grid-block-profile .status{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.grid-block-profile .status{
+    line-height: 0.4;
+}
+
+.show-reports{
+    width: 68%;
+    float: right;
+    margin: 0 auto 70px;
+}
+#popup{
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    text-align: center;
+    /* margin: auto; */
+    z-index: 100000;
+width: 30%;}
+
+.overlay-popup{
+    display: block;
+    height: inherit;
+    width: 100%;
+    filter: blur(2px);
+}
+.overlay-pops{
+    display: block;
+    height: inherit;
+    width: 100%;
+}
 footer{
     height: 30px;
     background: black;
     background: rgba(0,0,0,0.8);
     margin: 0 auto;
+    clear: both;
     }
 
 footer p{
@@ -192,12 +271,12 @@ footer p{
 */
 @media screen and (max-width: 600px){
 
-    /* body{
+    body{
         width: 100%
-    } */
+    }
     .bar .responsive{
         position: absolute;
-        z-index: 1;
+        /* z-index: 1; */
     }
 
     .bar.responsive .active{
@@ -210,6 +289,7 @@ footer p{
         display: block;
         text-align: left;
         color: #f1f1f1;
+        border-bottom: #f3e4e4 1px solid;
         }
         .bar{
             background: rgb(0, 0, 0); 
@@ -231,4 +311,62 @@ footer p{
         .status{
             font-size: 1.5rem
         }
+
+        
+        .profile{
+            width: 90%;
+        }
+        .total h5{
+            margin-top: 10px;
+            font-size: 1.0rem;
+        }
+        .profile >.image{
+            margin:auto;
+        }
+        .profile img{
+            height: 120px;
+            width: 120px;
+            border-radius: 200px;
+            background: #cccaca;
+            color: #fffffa;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .user-info{
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        
+        .grid-block-profile{
+            display: grid;    
+            grid-template-columns: repeat(1, 1fr);
+            /* spaces in between the grids */
+            grid-gap: 20px;
+        }
+        
+        .grid-block-profile span,
+        .grid-block-profile .status{
+            font-size: 1.0rem;
+            font-weight: 600;
+        }
+        
+        .grid-block-profile .status{
+            line-height: 0.2;
+        }
+        
+        .show-reports{
+            width: 100%;
+            margin: 40px auto 70px;
+            overflow-x: auto;
+        }
+        #popup{
+            position: absolute;
+            top: 80%;
+            left: 30%;
+            text-align: center;
+            /* margin: auto; */
+            z-index: 100000;
+            width: 50%;
+           background: white;
+        }  
 }
