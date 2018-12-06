@@ -258,10 +258,12 @@ footer p{
     .bar a:first-child{
         margin-right: 0%;
         margin-left: 1.0rem;
+        font-size: 1.7rem
     }
     .bar a.active {
         display: block;
         float: right;
+        font-size: 1.7rem
     }
     h3{
         font-size: 3.0rem
@@ -291,6 +293,7 @@ footer p{
         text-align: left;
         color: #f1f1f1;
         border-bottom: #f3e4e4 1px solid;
+        font-size: 1.7rem;
         }
         .bar{
             background: rgb(0, 0, 0); 
@@ -373,7 +376,7 @@ footer p{
 }
 
 
-@media screen and (max-width: 1100px){
+@media screen and (min-width: 600px) and (max-width: 1100px){
     .bar a:not(:first-child){
         display: none;
     }
@@ -394,7 +397,7 @@ footer p{
     }
 }
 
-@media screen and (max-width: 1100px){
+@media screen and (min-width: 600px) and (max-width: 1100px){
     body{
         width: 100%;
         font-size: 100%;
