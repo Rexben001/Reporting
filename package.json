@@ -4,6 +4,8 @@
   "description": "Whistle blowing app",
   "main": "app.js",
   "scripts": {
+    "build": "babel index.js -d dist",
+    "start": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
