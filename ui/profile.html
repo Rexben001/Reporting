@@ -18,7 +18,7 @@
             <div id="navbar" class="bar">
                 <a href="index.html"><i class="fas fa-desktop"></i></a>
                 <a href="index.html">Home</a>
-                <a href="#">Create Report</a>
+                <a href="create.html">Create Report</a>
                 <a href="signup.html">Sign up</a>
                 <a href="signin.html">Log in</a>
                 <a href="profile.html"><i class="fas fa-user"></i></a>
@@ -27,6 +27,7 @@
    </div>
    <section class="profile-section">
        <div class="profile">
+           <div class="pro">
            <div class="image">
                <img src="./assets/img/home.jpg" alt=""> 
            </div>
@@ -34,6 +35,7 @@
                <h5>Rex Ben</h5>
                <p>rexben.rb@gmail.com</p>
            </div>
+        </div>
            <div class="total">
                 <h5>Report statistics</h5>
                 <br>
@@ -119,9 +121,9 @@
 
    <div id="popup">
        <form action="">
-            <label for="location">Location</label>
+            <label for="location"><span class="icon"><i class="fas fa-compass"></i></span> Location</label>
                 <input type="text" id="location" required>
-                <label for="status">Status</label>
+                <label for="status"><span class="icon"><i class="fas fa-newspaper"></i></span> Status</label>
                 <input type="text" id="statuses" required>
                 <br>
                 <input type="submit" value="Save" id="save">
