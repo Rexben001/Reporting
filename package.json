@@ -4,7 +4,7 @@
   "description": "Whistle blowing app",
   "main": "app.js",
   "scripts": {
-    "build": "babel index.js -d dist",
+    "build": "babel server -d dist",
     "start": "npm run build && nodemon dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
