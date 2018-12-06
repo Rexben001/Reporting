@@ -222,6 +222,16 @@ margin-bottom: 50px;}
     font-size: 2.0rem;
     width: 30%;}
 
+    #popAdmin{
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 35%;
+        text-align: center;
+        z-index: 100000;
+        font-size: 2.0rem;
+        width: 30%;}
+
 .overlay-popup{
     display: block;
     height: inherit;
@@ -257,10 +267,12 @@ footer p{
     .bar a:first-child{
         margin-right: 0%;
         margin-left: 1.0rem;
+        font-size: 1.7rem
     }
     .bar a.active {
         display: block;
         float: right;
+        font-size: 1.7rem
     }
     h3{
         font-size: 3.0rem
@@ -290,6 +302,7 @@ footer p{
         text-align: left;
         color: #f1f1f1;
         border-bottom: #f3e4e4 1px solid;
+        font-size: 1.7rem;
         }
         .bar{
             background: rgb(0, 0, 0); 
@@ -356,8 +369,9 @@ footer p{
         
         .show-reports{
             width: 100%;
-            margin: 40px auto 70px;
+            margin: 40px 0 70px;
             overflow-x: auto;
+            padding: 0
         }
         #popup{
             position: absolute;
@@ -372,7 +386,7 @@ footer p{
 }
 
 
-@media screen and (max-width: 1100px){
+@media screen and (min-width: 600px) and (max-width: 1280px){
     .bar a:not(:first-child){
         display: none;
     }
@@ -393,7 +407,7 @@ footer p{
     }
 }
 
-@media screen and (max-width: 1100px){
+@media screen and (min-width: 600px) and (max-width: 1280px){
     body{
         width: 100%;
         font-size: 100%;
@@ -441,6 +455,8 @@ footer p{
     }
     .show-reports{
         width: 100%;
-        margin-top: 40px;
+        margin: 40px 0 70px;
+        overflow-x: auto;
+        padding: 0
     }
 }

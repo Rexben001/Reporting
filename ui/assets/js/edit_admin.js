@@ -1,6 +1,5 @@
-
-document.getElementById('edit').addEventListener('click', () => {
-    const popup = document.getElementById('popup');
+function editStatus(edit, popup){
+    edit.addEventListener('click', () => {
     const overlay = document.getElementById('overlay-pop');
     const locs = document.getElementById('loc');
     const stat = document.getElementById('status');
@@ -10,11 +9,6 @@ document.getElementById('edit').addEventListener('click', () => {
 
     const loc = locs.innerText;
     const status = stat.innerText;
-
-    //Split the value of Status to remove Edit from the text
-    // let sta = status.split('E');
-    // let statusValue = sta[0];
-
 
     if (popup.style.display == 'block') {
         popup.style.display = 'none';
@@ -33,7 +27,6 @@ document.getElementById('edit').addEventListener('click', () => {
 });
 
 document.getElementById('save').addEventListener('click', () => {
-    const popup = document.getElementById('popup');
     const overlay = document.getElementById('overlay-pop');
     const locs = document.getElementById('loc');
     const stat = document.getElementById('status');
@@ -48,5 +41,11 @@ document.getElementById('save').addEventListener('click', () => {
     stat.innerHTML = statuses.value;
 
 })
+
+}
+
+const edit = document.getElementById('editAdmin');
+const popup = document.getElementById('popAdmin');
+editStatus(edit, popup);
 
 
