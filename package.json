@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/Rexben001/Reporting/issues"
   },
-  "homepage": "https://github.com/Rexben001/Reporting#readme"
+  "homepage": "https://github.com/Rexben001/Reporting#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0"
+  }
 }
