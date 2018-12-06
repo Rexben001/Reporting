@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./assets/css/forms.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
         crossorigin='anonymous'>
-    <title>My profile</title>
+    <title>Admin Page</title>
 </head>
 
 <body>
@@ -26,36 +26,12 @@
             </div>
    </div>
    <section class="profile-section">
-       <div class="profile">
-           <div class="pro">
-           <div class="image">
-               <img src="./assets/img/home.jpg" alt=""> 
-           </div>
-           <div class="user-info">
-               <h5>Rex Ben</h5>
-               <p>rexben.rb@gmail.com</p>
-           </div>
-        </div>
-           <div class="total">
-                <h5>Report statistics</h5>
-                <br>
-                <div class="grid-block-profile">
-                        <div>
-                            <span>10</span>
-                            <p class="status">Resolved</p>
-                        </div>
-                        <div>
-                            <span>09</span>
-                            <p class="status">Pending</p>
-                        </div>
-                        <div>
-                            <span>18</span>
-                            <p class="status">Rejected</p>
-                        </div>
-                    </div>
-           </div>
-       </div>
-       <div class="show-reports">
+
+    <div class="search-area">
+        <input type="search" placeholder="search here...">
+        <a href=""><i class="fas fa-search"></i></a>
+    </div>
+       <div class="show-reports admin-space">
            <div id="overlay-pop" class="overlay-pops">
 <table>
     <tr>
@@ -119,7 +95,7 @@
        </div>
    </section>
 
-   <div id="popup">
+   <div id="popup" class="pop-admin">
        <form action="">
             <label for="location"><span class="icon"><i class="fas fa-compass"></i></span> Location</label>
                 <input type="text" id="location" required>
@@ -131,8 +107,7 @@
    </div>
     <footer>
             <p>&copy; Reporting Inc. 2018</p>
-        </footer>
-        </div>
+    </footer>
 <script src="./assets/js/main.js"></script>
 <script src="./assets/js/edit_reports.js"></script>
 </body>
