@@ -222,6 +222,16 @@ margin-bottom: 50px;}
     font-size: 2.0rem;
     width: 30%;}
 
+    #popups{
+        display: block;
+        position: fixed;
+        top: 30%;
+        left: 30%;
+        text-align: center;
+        z-index: 100000;
+        font-size: 2.0rem;
+        width: 30%;}
+
 .overlay-popup{
     display: block;
     height: inherit;
@@ -359,8 +369,9 @@ footer p{
         
         .show-reports{
             width: 100%;
-            margin: 40px auto 70px;
+            margin: 40px 0 70px;
             overflow-x: auto;
+            padding: 0
         }
         #popup{
             position: absolute;
@@ -444,6 +455,8 @@ footer p{
     }
     .show-reports{
         width: 100%;
-        margin-top: 40px;
+        margin: 40px 0 70px;
+        overflow-x: auto;
+        padding: 0
     }
 }
