@@ -9,9 +9,60 @@
     padding: 20px;
 }
 
-/* form{
-    padding: 20px;
-} */
+.createForm{
+    width: 40%;
+    margin: 50px auto;
+    float: left;
+}
+.cards{
+    width: 55%;
+    margin: 50px auto;
+    float: right;
+    display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  
+}
+
+textarea{
+    border-radius: 5px;
+    border: #000000 1px solid;
+    width: 90%;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+textarea:focus{
+    border-color: #e40e0e
+}
+
+textarea:hover{
+    border-color: #6fc3d8
+}
+
+.cards > div{
+   background: white;
+   color: black;
+   padding: 10px;
+   margin: 10px;
+   width: 300px;
+   text-align: left;
+   border-left: #000000 solid 2px;
+   box-shadow: #000000;
+   border-radius: 10px;
+}
+
+.cards > div > p{
+    padding: 10px 15px;
+}
+.cards > div > p > span{
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.cards > div:hover{
+    
+}
 .icon{
     padding-right: 5px;
 }
@@ -63,6 +114,11 @@ input[type=submit]{
     width: 95%;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+input[type=submit]:hover{
+    background: white;
+    color: blue;
 }
 .have-account{
     font-weight: 600;
