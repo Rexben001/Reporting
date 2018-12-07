@@ -7,7 +7,7 @@
     "build": "babel server -d dist",
     "start": "npm run build && nodemon dist/app.js",
     "test": "mocha server/specs/*.js --compilers js:@babel/register",
-    "eslint": "eslint server/"
+    "lint": "eslint server/ --fix"
   },
   "repository": {
     "type": "git",
