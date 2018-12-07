@@ -1,0 +1,34 @@
+{
+  "name": "reporting",
+  "version": "1.0.0",
+  "description": "Whistle blowing app",
+  "main": "app.js",
+  "scripts": {
+    "build": "babel server -d dist",
+    "start": "npm run build && nodemon dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rexben001/Reporting.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rexben001/Reporting/issues"
+  },
+  "homepage": "https://github.com/Rexben001/Reporting#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^1.18.7"
+  }
+}
