@@ -64,4 +64,4 @@ typings/
 
 .bash_profile
 
-dist
+dist/
