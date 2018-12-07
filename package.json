@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel server -d dist",
     "start": "npm run build && nodemon dist/app.js",
-    "test": "mocha"
+    "test": "mocha server/specs/*.js"
   },
   "repository": {
     "type": "git",
