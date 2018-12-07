@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel server -d dist",
     "start": "npm run build && nodemon dist/app.js",
-    "test": "mocha server/specs/*.js --compilers js:@babel/register",
+    "test": "nyc mocha --require babel-polyfill --require babel-register ./server/test/ --timeout 10000 --exit",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint server/ --fix",
     "docs": "./node_modules/.bin/jsdoc server/"
   },
@@ -39,6 +40,7 @@
     "eslint-plugin-import": "^2.14.0",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.7",
+    "nyc": "^13.1.0"
   }
 }
