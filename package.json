@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel server -d dist",
     "start": "npm run build && nodemon dist/app.js",
-    "test": "nyc mocha --require babel-polyfill --require babel-register ./server/test/ --timeout 10000 --exit",
+    "test": "nyc mocha --require babel-polyfill --require babel-register ./server/specs/ --timeout 10000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint server/ --fix",
     "docs": "./node_modules/.bin/jsdoc server/"
