@@ -1,8 +1,20 @@
-import http from 'http';
+import express from 'express';
+import bodyParser from 'body-parser';
 
-http.createServer((req, res) => {
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.end('Hello World\n');
-}).listen(1337, '127.0.0.1');
+const app = express();
+const router = express.Router();
 
-console.log('Server running at http://127.0.0.1:1337/');
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
+app.use(bodyParser.json());
+
+router.get('/ben', (req, res) => {
+  res.json('Hello World!'); 
+});
+
+app.use('/api', router);
+
+app.listen(3000, () => {
+  console.log('Listening to PORT 3000');
+});
