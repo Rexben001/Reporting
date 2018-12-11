@@ -12,7 +12,9 @@ router.post('/users', UserControllers.createUser);
 router.get('/reports', ReportControllers.getReport);
 router.post('/reports', ReportControllers.createReport);
 router.get('/reports/:report_id', ReportControllers.getAReport);
-router.put('/reports/:report_id', ReportControllers.editLocation);
+router.patch('/reports/:report_id/edit', ReportControllers.editLocation);
+router.patch('/reports/:report_id/status', ReportControllers.editStatus);
+router.patch('/reports/:report_id/cancel', ReportControllers.deleteReport);
 
 
 export default router;
