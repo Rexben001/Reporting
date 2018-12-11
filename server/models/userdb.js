@@ -8,7 +8,8 @@ const users = [
     phonenumber: '234567890',
     username: 'Rexben',
     registered: '12-12-12',
-    is_admin: false
+    is_admin: false,
+    report: []
   }
 ];
 
