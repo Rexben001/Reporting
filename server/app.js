@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // router.get('/users', userss.getUsers());
 
-router.get('/', (req, res) => res.status(200).json({
+app.get('/', (req, res) => res.status(200).json({
   success: true,
   message: 'Reporting Inc',
 }));

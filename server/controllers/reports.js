@@ -2,6 +2,10 @@ import reports from '../models/reportdb';
 
 /**
  * @class ReporterControllers
+ * @description Specifies which method handles a given request for a specific endpoint
+ * @exports PostController
+ * @param {req} : The request object sent in the body
+ * @param {res} : The reponse object sent by the server to the user
  */
 class ReporterControllers {
   /**
@@ -46,7 +50,7 @@ class ReporterControllers {
    */
   static getAReport(req, res) {
     const id = parseInt(req.params.report_id, 10);
-    reports.find((report) => {
+    reports.forEach((report) => {
       if (report.id === id) {
         return res.json({
           message: report
@@ -58,13 +62,12 @@ class ReporterControllers {
   /**
   * @param {Object} req - Request
   * @param {Object} res - Response
-  * @returns {json} reports
   */
   static editLocation(req, res) {
     const id = parseInt(req.params.report_id, 10);
     const { latitude, longitude } = req.body;
-    reports.find((report) => {
-	  if (report.id === id) {
+    reports.forEach((report) => {
+      if (report.id === id) {
         report.latitude = latitude || report.latitude;
         report.longitude = longitude || report.longitude;
 
@@ -79,15 +82,13 @@ class ReporterControllers {
   /**
   * @param {Object} req - Request
   * @param {Object} res - Response
-  * @returns {json} reports
   */
   static editStatus(req, res) {
     const id = parseInt(req.params.report_id, 10);
     const { status } = req.body;
-    reports.find((report) => {
+    reports.forEach((report) => {
       if (report.id === id) {
         report.status = status || report.status;
-
         return res.json({
           message: 'Updated successfully',
           data: report
@@ -102,7 +103,7 @@ class ReporterControllers {
   */
   static deleteReport(req, res) {
     const id = parseInt(req.params.report_id, 10);
-    reports.find((report) => {
+    reports.forEach((report) => {
       if (report.id === id) {
         report.status = 'Rejected';
         return res.json({
