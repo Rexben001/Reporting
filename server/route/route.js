@@ -11,7 +11,8 @@ router.post('/users', UserControllers.createUser);
 
 router.get('/reports', ReportControllers.getReport);
 router.post('/reports', ReportControllers.createReport);
-router.patch('/reports/:report_id', ReportControllers.editLocation);
+router.get('/reports/:report_id', ReportControllers.getAReport);
+router.put('/reports/:report_id', ReportControllers.editLocation);
 
 
 export default router;
