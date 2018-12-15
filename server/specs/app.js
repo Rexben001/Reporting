@@ -1,9 +1,11 @@
-import assert from 'assert';
+import chai from 'chai';
+
+chai.should();
 
 describe('Array', () => {
   describe('#indexOf()', () => {
     it('should return -1 when the value is not present', () => {
-      assert.equal([1, 2, 3].indexOf(4), -1);
+      chai.equal([1, 2, 3].indexOf(4), -1);
     });
   });
 });
