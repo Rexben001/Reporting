@@ -1,0 +1,462 @@
+/*Remove spaces automatically added by the browser*/
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover{
+    color: rgba(0, 0, 0, 0.4);
+}
+
+/*Background image*/
+header{
+    background: url(../img/home.jpg);
+    height: 100vh;
+    position: relative;
+}
+
+.overlay{
+    /* background: rgb(0, 0, 0);  */
+    background: rgba(0, 0, 0, 0.4);
+    color: #f1f1f1;
+    height: inherit;
+    width: inherit;
+}
+
+.bar{
+    overflow: hidden;
+    background: black;
+    background: rgba(0,0,0,0.8)
+}
+.bar a{
+    display: block;
+    float: left;
+    padding: 10px 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    margin: 0 1.2rem;
+}
+
+/*First child/ first element*/
+.bar a:first-child{
+    margin-right: 40%;
+    margin-left: 6.0rem;
+}
+
+.bar .active{ 
+    display: none;
+}
+.reporting{
+    margin: 30px;
+    text-align: center;
+    position: absolute;
+    z-index: 0;
+}
+h3{
+    font-size: 3.0rem;
+}
+.details{
+    font-size: 2.0rem;
+    padding: 10px 100px;    
+}
+
+section{
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+}
+
+#quotes{
+    padding: 10px 90px;
+    font-size: 1.5rem;
+    font-style: italic;
+    margin: 0 auto;
+    border: none;
+    text-align: center;
+    display: block;
+}
+/* #quotes:before{
+    content: open-quote;
+    font-size: 5.0rem;
+    line-height: 0.4;
+    vertical-align: top;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+    left: -10%;
+    color: aqua
+}
+#quotes:after{
+    content: close-quote;
+    font-size: 5.0rem;
+    line-height: 0.8;
+    vertical-align: top;
+    right: -15%;
+    bottom: -60px;
+}
+
+#quotes p{
+    display: inline;
+} */
+
+.how-to{
+    text-align: center;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.how-to h4{
+    margin-top: 20px;
+    font-size: 2.0rem
+}
+.grid-block{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* spaces in between the grids */
+    grid-gap: 20px;
+    padding: 10px;
+
+}
+.grid-block > div{
+    text-align: center;
+    margin: 0 auto;
+}
+.grid-block > div > .circle{
+    margin: auto;
+}
+.circle{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    background: black;
+    background: rgba(0,0,0,0.8);
+    color: #fffffa;
+    display: block;
+    line-height: 60px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+
+.status{
+    text-align: center;
+    font-size: 2.0rem;
+    margin: 10px auto;
+
+}
+
+.container{
+    background: #cccaca;
+}
+
+.container h4{
+font-size: 1.7rem;
+margin-bottom: 50px;}
+
+.profile-section{
+    margin: 50px 10px 50px;
+}
+.profile{
+    width: 25%;
+    background: white;
+    padding: 20px;
+    float: left;
+}
+
+.total h5{
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+.profile >.image{
+    margin:auto;
+}
+.profile img{
+    height: 150px;
+    width: 150px;
+    border-radius: 240px;
+    background: #b87272;
+    color: #fffffa;
+    text-align: center;
+    margin: 30px 0;
+}
+.user-info{
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.grid-block-profile{
+    display: grid;    
+    grid-template-columns: repeat(3, 1fr);
+    /* spaces in between the grids */
+    grid-gap: 20px;
+}
+
+.grid-block-profile span,
+.grid-block-profile .status{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.grid-block-profile .status{
+    line-height: 0.4;
+}
+
+.show-reports{
+    width: 68%;
+    float: right;
+    margin: 0 auto 70px;
+}
+#popup{
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    text-align: center;
+    z-index: 100000;
+    font-size: 2.0rem;
+    width: 30%;}
+
+    #popAdmin{
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 35%;
+        text-align: center;
+        z-index: 100000;
+        font-size: 2.0rem;
+        width: 30%;}
+
+.overlay-popup{
+    display: block;
+    height: inherit;
+    width: 100%;
+    filter: blur(2px);
+}
+.overlay-pops{
+    display: block;
+    height: inherit;
+    width: 100%;
+}
+footer{
+    height: 30px;
+    background: black;
+    background: rgba(0,0,0,0.8);
+    margin: 0 auto;
+    clear: both;
+    }
+
+footer p{
+    text-align: center;
+    padding-top: 10px;
+    font-weight: 600;
+    color: white;
+}
+
+
+/*Media Queries*/
+@media screen and (max-width: 600px){
+    .bar a:not(:first-child){
+        display: none;
+    }
+    .bar a:first-child{
+        margin-right: 0%;
+        margin-left: 1.0rem;
+        font-size: 1.7rem
+    }
+    .bar a.active {
+        display: block;
+        float: right;
+        font-size: 1.7rem
+    }
+    h3{
+        font-size: 3.0rem
+    }
+}
+/*Display the menu in block format
+*This works directly with the js file
+*/
+@media screen and (max-width: 600px){
+
+    body{
+        width: 100%
+    }
+    .bar .responsive{
+        position: absolute;
+        /* z-index: 1; */
+    }
+
+    .bar.responsive .active{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .bar.responsive a{
+        float: none;
+        display: block;
+        text-align: left;
+        color: #f1f1f1;
+        border-bottom: #f3e4e4 1px solid;
+        font-size: 1.7rem;
+        }
+        .bar{
+            background: rgb(0, 0, 0); 
+    
+            background: rgba(0, 0, 0, 0.4);
+        }
+        header{
+            height: 60vh;
+        }
+        .details{
+            font-size: 2.0rem;
+            padding: 10px 30px;      
+         }
+
+         .grid-block{
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .status{
+            font-size: 1.5rem
+        }
+
+        
+        .profile{
+            width: 90%;
+        }
+        .total h5{
+            margin-top: 10px;
+            font-size: 1.0rem;
+        }
+        .profile >.image{
+            margin:auto;
+        }
+        .profile img{
+            height: 120px;
+            width: 120px;
+            border-radius: 200px;
+            background: #cccaca;
+            color: #fffffa;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .user-info{
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        
+        .grid-block-profile{
+            display: grid;    
+            grid-template-columns: repeat(1, 1fr);
+            /* spaces in between the grids */
+            grid-gap: 20px;
+        }
+        
+        .grid-block-profile span,
+        .grid-block-profile .status{
+            font-size: 1.0rem;
+            font-weight: 600;
+        }
+        
+        .grid-block-profile .status{
+            line-height: 0.2;
+        }
+        
+        .show-reports{
+            width: 100%;
+            margin: 40px 0 70px;
+            overflow-x: auto;
+            padding: 0
+        }
+        #popup{
+            position: absolute;
+            top: 80%;
+            left: 15%;
+            text-align: center;
+            /* margin: auto; */
+            z-index: 100000;
+            width: 70%;
+           background: white;
+        }  
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 1280px){
+    .bar a:not(:first-child){
+        display: none;
+    }
+    .bar a:first-child{
+        margin-right: 0%;
+        margin-left: 1.0rem;
+        font-size: 2.3rem;
+
+    }
+    .bar a.active {
+        display: block;
+        float: right;
+        font-size: 2.3rem;
+
+    }
+    h3{
+        font-size: 3.2rem
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1280px){
+    body{
+        width: 100%;
+        font-size: 100%;
+    }
+    .bar .responsive{
+        position: absolute;
+        /* z-index: 1; */
+    }
+
+    .bar.responsive .active{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .bar.responsive a{
+        float: none;
+        display: block;
+        text-align: left;
+        color: #f1f1f1;
+        border-bottom: #f3e4e4 1px solid;
+        font-size: 2.3rem;
+        }
+        .bar{
+            background: rgb(0, 0, 0); 
+            background: rgba(0, 0, 0, 0.4);
+        }
+        header{
+            height: 80vh;
+        }
+
+        .profile{
+            width: 95%;
+            background: white;
+            padding: 20px;
+            float: left;
+        }
+    .pro{
+        width: 50%;
+        float: left;
+    }
+    .total{
+        width: 50%;
+        float: right;
+        margin-top: 40px;
+    }
+    .show-reports{
+        width: 100%;
+        margin: 40px 0 70px;
+        overflow-x: auto;
+        padding: 0
+    }
+}

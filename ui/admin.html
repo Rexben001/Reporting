@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/forms.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
+        crossorigin='anonymous'>
+    <title>Admin Page</title>
+</head>
+
+<body>
+    <div class="container"> 
+        <div class="overlay">
+            <div id="navbar" class="bar">
+                <a href="index.html"><i class="fas fa-desktop"></i></a>
+                <a href="index.html">Home</a>
+                <a href="create.html">Create Report</a>
+                <a href="signup.html">Sign up</a>
+                <a href="signin.html">Log in</a>
+                <a href="profile.html"><i class="fas fa-user"></i></a>
+                <a href="#" class="active" id="fa-bars"><i class="fa fa-bars"></i></a>
+            </div>
+   </div>
+   <section class="profile-section">
+
+    <div class="search-area">
+        <input type="search" placeholder="search here...">
+        <a href=""><i class="fas fa-search"></i></a>
+    </div>
+       <div class="show-reports admin-space">
+           <div id="overlay-pop" class="overlay-pops">
+<table>
+    <tr>
+    <th>S/N</th>
+    <th>Issue</th>
+    <th>Date/Time</th>
+    <th>Location</th>
+    <th>Status</th>
+    <th>Delete</th>
+</tr>
+<tr>
+        <td>1</td>
+        <td>Fuel Scarcity</td>
+        <td>20-20-20 10:23am</td>
+        <td id="loc">1.246823, 980.344</td>
+        <td><span id="status">Resolved</span><br><a href="#" id="editAdmin">Edit</a></td>
+        <td><button class="delete">Delete</button></td>
+</tr>
+<tr>
+        <td>2</td>
+        <td>Bad roads, it has turned into a stagnant water</td>
+        <td>12-12-12 10:23am</td>
+        <td id="loc">1.246823, 980.344</td>
+        <td><span id="status">Resolved</span><br><a href="#" id="editAdmin">Edit</a></td>
+        <td><button class="delete">Delete</button></td>
+</tr>
+<tr>
+        <td>3</td>
+        <td>High level of crime and decadency</td>
+        <td>12-12-12 10:23am</td>
+        <td id="loc">1.246823, 980.344</td>
+        <td><span id="status">Resolved</span><br><a href="#" id="editAdmin">Edit</a></td>
+        <td><button class="delete">Delete</button></td>
+</tr>
+<tr>
+        <td>3</td>
+        <td>High level of crime and decadency</td>
+        <td>12-12-12 10:23am</td>
+        <td id="loc">1.246823, 980.344</td>
+        <td><span id="status">Resolved</span><br><a href="#" id="editAdmin">Edit</a></td>
+        <td><button class="delete">Delete</button></td>
+</tr>
+<tr>
+        <td>3</td>
+        <td>High level of crime and decadency</td>
+        <td>12-12-12 10:23am</td>
+        <td id="loc">1.246823, 980.344</td>
+        <td><span id="status">Resolved</span><br><a href="#" id="editAdmin">Edit</a></td>
+        <td><button class="delete">Delete</button></td>
+</tr>
+<tr>
+        <td>3</td>
+        <td>High level of crime and decadency</td>
+        <td>12-12-12 10:23am</td>
+        <td id="loc">1.246823, 980.344</td>
+        <td><span id="status">Resolved</span><br><a href="#" id="editAdmin">Edit</a></td>
+        <td><button class="delete">Delete</button></td>
+</tr>
+</table>
+</div>
+       </div>
+   </section>
+
+   <div id="popAdmin">
+       <form action="">
+            <label for="location"><span class="icon"><i class="fas fa-compass"></i></span> Location</label>
+                <input type="text" id="location" required>
+                <label for="status"><span class="icon"><i class="fas fa-newspaper"></i></span> Status</label>
+                <input type="text" id="statuses" required>
+                <br>
+                <input type="submit" value="Save" id="save">
+            </form>
+   </div>
+    <footer>
+            <p>&copy; Reporting Inc. 2018</p>
+    </footer>
+<script src="./assets/js/main.js"></script>
+<script src="./assets/js/edit_admin.js"></script>
+</body>
+
+</html>

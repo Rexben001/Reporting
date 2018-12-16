@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/forms.css">
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
+        crossorigin='anonymous'>
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <div class="container">
+            <div class="overlay">
+                    <div id="navbar" class="bar">
+                        <a href="index.html"><i class="fas fa-desktop"></i></a>
+                        <a href="index.html">Home</a>
+                        <a href="create.html">Create Report</a>
+                        <a href="signup.html">Sign up</a>
+                        <a href="signin.html">Log in</a>
+                        <a href="profile.html"><i class="fas fa-user"></i></a>
+                        <a href="#" class="active" id="fa-bars"><i class="fa fa-bars"></i></a>
+                    </div>
+    <section>
+        <div class="signup-form">
+            <h4>Sign Up</h4>
+            <form class="signup">
+                <label for="firstName"><span class="icon"><i class="fa fa-user-circle"></i></span> First Name</label>
+                <input type="text" id="firstName" required>
+                <label for="lastName"><span class="icon"><i class="fa fa-user-circle"></i></span> Last Name</label>
+                <input type="text" id="lastName" required>
+                <label for="otherNames"><span class="icon"><i class="fa fa-user-circle"></i></span> Other Names</label>
+                <input type="text" id="otherNames" required>
+                <label for="email"><span class="icon"><i class="fa fa-envelope"></i></span> Email Address</label>
+                <input type="email" id="email" required>
+                <!-- <label for="phoneNumber">Phone Number</label>
+                <input type="number" id="phoneNumber" required> -->
+                <label for="password"><span class="icon"><i class="fa fa-lock"></i></span> Password</label>
+                <input type="password" id="password" required>
+                <label for="c-password"><span class="icon"><i class="fa fa-lock"></i></span> Confirm Password</label>
+                <input type="password" id="c-password" required>
+                <br>
+                <input type="submit" value="Sign up">
+            </form>
+            <p class="have-account"><a href="signin.html">Have an account? Log in here</a></p>
+        </div>
+    </section>
+    <footer>
+            <p>&copy; Reporting Inc. 2018</p>
+        </footer>
+        </div>
+<script src="./assets/js/main.js"></script>
+</body>
+
+</html>
