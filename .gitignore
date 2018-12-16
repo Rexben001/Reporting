@@ -64,8 +64,6 @@ typings/
 
 .bash_profile
 
-#babel
-dist/
 
 #jsdocs
 out/

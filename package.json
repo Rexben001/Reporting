@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "babel server -d dist",
-    "start": "npm run build &&  dist/app.js",
+    "start": "npm run build &&  node dist/app.js",
     "start-dev": "nodemon --require @babel/register server/app.js",
     "test": "nyc mocha --require @babel/register ./server/specs/*.js --timeout 10000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
