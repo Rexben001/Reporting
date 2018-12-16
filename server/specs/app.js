@@ -1,11 +1,19 @@
 import chai from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../app';
 
 chai.should();
 
-describe('Array', () => {
-  describe('#indexOf()', () => {
-    it('should return -1 when the value is not present', () => {
-      chai.equal([1, 2, 3].indexOf(4), -1);
-    });
-  });
+chai.use(chaiHttp);
+
+describe('GET /', () => {
+  it('it should get homepage', ((done) => {
+    chai.request(app)
+      .get('/')
+      .end((err, res) => {
+        res.should.have.status(200);
+        // res.body.should.have.message('Reporting Inc');
+        done(err);
+      });
+  }));
 });
