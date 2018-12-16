@@ -3,9 +3,7 @@ import reports from '../models/reportdb';
 /**
  * @class ReporterControllers
  * @description Specifies which method handles a given request for a specific endpoint
- * @exports PostController
- * @param {req} : The request object sent in the body
- * @param {res} : The reponse object sent by the server to the user
+ * @exports ReporterControllers
  */
 class ReporterControllers {
   /**
@@ -15,7 +13,8 @@ class ReporterControllers {
    */
   static getReport(req, res) {
     return res.json({
-      messsage: reports
+      success: true,
+      message: reports
     });
   }
 
@@ -72,8 +71,8 @@ class ReporterControllers {
         report.longitude = longitude || report.longitude;
 
         return res.json({
-          message: 'Updated successfully',
-          data: report
+          success: 'Updated successfully',
+          message: report
         });
       }
     });
@@ -90,8 +89,8 @@ class ReporterControllers {
       if (report.id === id) {
         report.status = status || report.status;
         return res.json({
-          message: 'Updated successfully',
-          data: report
+          success: 'Updated successfully',
+          message: report
         });
       }
     });
@@ -107,8 +106,8 @@ class ReporterControllers {
       if (report.id === id) {
         report.status = 'Rejected';
         return res.json({
-          message: 'Updated successfully',
-          data: report
+          success: 'Updated successfully',
+          message: report
         });
       }
     });
