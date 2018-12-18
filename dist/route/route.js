@@ -11,12 +11,14 @@ var _users = _interopRequireDefault(require("../controllers/users"));
 
 var _reports = _interopRequireDefault(require("../controllers/reports"));
 
+var _validate = _interopRequireDefault(require("../middlewares/validate"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express.default.Router();
 
 router.get('/users', _users.default.getUsers);
-router.post('/users', _users.default.createUser);
+router.post('/users', _validate.default.checkUser, _users.default.createUser);
 router.get('/reports', _reports.default.getReport);
 router.post('/reports', _reports.default.createReport);
 router.get('/reports/:report_id', _reports.default.getAReport);

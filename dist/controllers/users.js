@@ -15,9 +15,11 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var pool = _userdb.default.pool;
 /**
  * @class UserControllers
  */
+
 var UserControllers =
 /*#__PURE__*/
 function () {
@@ -31,11 +33,31 @@ function () {
     /**
      * @param {Object} req - Request
      * @param {Object} res - Response
-     * @returns {json} users
      */
     value: function getUsers(req, res) {
-      return res.json({
-        users: _userdb.default
+      pool.connect(function (client, done) {
+        var query = 'SELECT * FROM users';
+        client.query(query, function (err, result) {
+          done();
+
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          }
+
+          if (result.rows < 1) {
+            res.status(404).send({
+              status: 'Failed',
+              message: 'No users information found'
+            });
+          } else {
+            res.json({
+              message: 'Users Information retrieved',
+              users: result.rows
+            });
+          }
+        });
       });
     }
     /**
@@ -48,32 +70,41 @@ function () {
     key: "createUser",
     value: function createUser(req, res) {
       var _req$body = req.body,
-          id = _req$body.id,
           firstname = _req$body.firstname,
           lastname = _req$body.lastname,
           othernames = _req$body.othernames,
+          username = _req$body.username,
           email = _req$body.email,
           phonenumber = _req$body.phonenumber,
-          username = _req$body.username,
-          registered = _req$body.registered,
-          isAdmin = _req$body.isAdmin;
-      var user = {
-        id: id,
-        firstname: firstname,
-        lastname: lastname,
-        othernames: othernames,
-        email: email,
-        phonenumber: phonenumber,
-        username: username,
-        registered: registered,
-        isAdmin: isAdmin
-      };
+          password = _req$body.password,
+          registered = _req$body.registered; // const user = {
+      //   id,
+      //   firstname,
+      //   lastname,
+      //   othernames,
+      //   email,
+      //   phonenumber,
+      //   username,
+      //   registered,
+      //   isAdmin
+      // };
 
-      _userdb.default.push(user);
+      pool.connect(function (client, done) {
+        var query = 'INSERT INTO users(firstname, lastname, othernames, username, email, phone, password, registered) VALUES($1,$2,$3,$4,$5,$6,$7,NOW()) RETURNING *';
+        var value = [firstname, lastname, othernames, username, email, phonenumber, password, registered];
+        client.query(query, value, function (err, result) {
+          done();
 
-      return res.json({
-        user: user,
-        users: _userdb.default
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          } else {
+            res.json({
+              message: result
+            });
+          }
+        });
       });
     }
   }]);

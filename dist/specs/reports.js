@@ -6,8 +6,6 @@ var _chaiHttp = _interopRequireDefault(require("chai-http"));
 
 var _app = _interopRequireDefault(require("../app"));
 
-var _fs = require("fs");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _chai.default.should();

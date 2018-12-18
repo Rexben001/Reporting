@@ -1,13 +1,13 @@
 import express from 'express';
 import UserControllers from '../controllers/users';
 import ReportControllers from '../controllers/reports';
-
+import Validation from '../middlewares/validate';
 
 const router = express.Router();
 
 
 router.get('/users', UserControllers.getUsers);
-router.post('/users', UserControllers.createUser);
+router.post('/users', Validation.checkUser, UserControllers.createUser);
 
 router.get('/reports', ReportControllers.getReport);
 router.post('/reports', ReportControllers.createReport);
