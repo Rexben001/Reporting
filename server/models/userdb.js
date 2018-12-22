@@ -1,16 +1,26 @@
 import pg from 'pg';
+import 'make-runnable';
+import dotenv from 'dotenv';
+ 
 
-const config = {
-  connectionString: 'postgres://localhost:5432/report'
-};
+// const { Pool } = pg;
+dotenv.config();
+const { Pool } = pg;
 
-const pool = new pg.Pool(config);
-
-pool.on('connect', () => {
+const pool = new Pool({
+  user: 'rex',
+  host: 'localhost',
+  database: 'report_db',
+  password: process.env.password,
+  port: 5432
 });
 
-const createUser = async () => {
-  const user = `CREATE TABLE IF NOT EXISTS 
+pool.on('connect', () => {
+  // console.log('connected to the Database');
+});
+
+const users = async () => {
+  const userTable = `CREATE TABLE IF NOT EXISTS 
   users(
     user_id SERIAL PRIMARY KEY,
     firstname VARCHAR(128) NOT NULL,
@@ -21,16 +31,26 @@ const createUser = async () => {
     username VARCHAR(128) NOT NULL,
     phone VARCHAR(128) NOT NULL,
     registered DATE,
-    is_admin BOOLEAN
+    is_admin BOOLEAN,
     UNIQUE(username, email)
-  )`;
-
-  const result = await pool.query(user);
-
-  console.log(result);
+  );`;
+  await pool.query(userTable);
+  //   .then((res) => {
+  //     // console.log(res);
+  //     pool.end();
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     pool.end();
+  //   });
 };
 
-export default { createUser, pool };
+// pool.on('remove', () => {
+//   console.log('client removed');
+//   process.exit(0);
+// });
+
+export default { pool, users };
 
 
 // const users = [

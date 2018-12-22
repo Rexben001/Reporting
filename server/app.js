@@ -1,9 +1,12 @@
+import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './route/route';
 import userdb from './models/userdb';
+import reportsdb from './models/reportdb';
 
-const { createUser } = userdb;
+const { users } = userdb;
+const { report } = reportsdb;
 
 const app = express();
 // const router = express.Router();
@@ -20,14 +23,22 @@ app.get('/', (req, res) => res.status(200).json({
   message: 'Reporting Inc',
 }));
 
-const migrate = async () => {
-  await createUser();
+// const migrate = async () => {
+//   await createUser();
+//   await createReport();
+// };
+// migrate();
+const createTable = async () => {
+  await users();
+  await report();
 };
-migrate();
 
+createTable();
 app.use('/api/v1', router);
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Started');
+});
 
 
 export default app;

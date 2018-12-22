@@ -20,24 +20,20 @@ describe('GET /v1/users', () => {
 
 describe('Add new user', () => {
   it('it should get the details of the new users', ((done) => {
-    const user = {
-      id: 1,
-      firstname: 'Ben',
-      lastname: 'Rex',
-      othernames: 'Seyi',
-      email: 'rex@gmail.com',
+    const users = {
+      firstname: 'SBen',
+      lastname: 'SRex',
+      othernames: 'DSeyi',
+      email: 'srex@gmail.com',
       phonenumber: '234567890',
-      username: 'Rexben',
-      registered: '12-12-12',
-      is_admin: false,
-      report: []
+      username: 'Dexben',
+      password: '3456789uijh'
     };
     chai.request(app)
-      .post('/api/v1/users/')
-      .send(user)
+      .post('/api/v1/users')
+      .send(users)
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('Object');
         done(err);
       });
   }));
