@@ -15,11 +15,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var pool = _reportdb.default.pool;
 /**
  * @class ReporterControllers
  * @description Specifies which method handles a given request for a specific endpoint
  * @exports ReporterControllers
  */
+
 var ReporterControllers =
 /*#__PURE__*/
 function () {
@@ -36,9 +38,27 @@ function () {
      * @returns {json} reports
      */
     value: function getReport(req, res) {
-      return res.json({
-        success: true,
-        message: _reportdb.default
+      pool.connect(function (err, client) {
+        var query = 'SELECT * FROM reports';
+        client.query(query, function (err, result) {
+          // done();
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          }
+
+          if (result.rows < 1) {
+            res.status(404).send({
+              status: 'Failed',
+              message: 'No users information found'
+            });
+          } else {
+            return res.json({
+              message: result.rows
+            });
+          }
+        });
       });
     }
     /**
@@ -51,25 +71,34 @@ function () {
     key: "createReport",
     value: function createReport(req, res) {
       var _req$body = req.body,
-          id = _req$body.id,
           name = _req$body.name,
           status = _req$body.status,
           latitude = _req$body.latitude,
           longitude = _req$body.longitude,
-          description = _req$body.description;
-      var report = {
-        id: id,
-        name: name,
-        status: status,
-        latitude: latitude,
-        longitude: longitude,
-        description: description
-      };
+          description = _req$body.description,
+          placedBy = _req$body.placedBy;
+      pool.connect(function (err, client) {
+        var query = 'INSERT INTO reports(name, status, latitude, longitude, description, placedBy) VALUES($1,$2,$3,$4,$5,$6) RETURNING *';
+        var value = [name, status, latitude, longitude, description, placedBy];
+        client.query(query, value, function (err, result) {
+          // done();
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          }
 
-      _reportdb.default.push(report);
-
-      return res.json({
-        message: report
+          if (result.rows < 1) {
+            res.status(404).send({
+              status: 'Failed',
+              message: 'No users information found'
+            });
+          } else {
+            return res.json({
+              message: result.rows
+            });
+          }
+        });
       });
     }
     /**
@@ -81,13 +110,28 @@ function () {
     key: "getAReport",
     value: function getAReport(req, res) {
       var id = parseInt(req.params.report_id, 10);
+      pool.connect(function (err, client) {
+        var query = "SELECT * FROM reports where id=".concat(id, ";");
+        client.query(query, function (err, result) {
+          // done();
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          }
 
-      _reportdb.default.forEach(function (report) {
-        if (report.id === id) {
-          return res.json({
-            message: report
-          });
-        }
+          if (result.rows < 1) {
+            res.status(404).send({
+              status: 'Failed',
+              message: 'No users information found'
+            });
+          } else {
+            return res.json({
+              success: 'True',
+              message: result.rows
+            });
+          }
+        });
       });
     }
     /**
@@ -101,17 +145,25 @@ function () {
       var id = parseInt(req.params.report_id, 10);
       var _req$body2 = req.body,
           latitude = _req$body2.latitude,
-          longitude = _req$body2.longitude;
+          longitude = _req$body2.longitude; // report.latitude = latitude || report.latitude;
+      // report.longitude = longitude || report.longitude;
 
-      _reportdb.default.forEach(function (report) {
-        if (report.id === id) {
-          report.latitude = latitude || report.latitude;
-          report.longitude = longitude || report.longitude;
-          return res.json({
-            success: 'Updated successfully',
-            message: report
-          });
-        }
+      pool.connect(function (err, client) {
+        var query = 'UPDATE reports SET latitude=$1, longitude=$2 WHERE id=$3';
+        var value = [latitude, longitude, id];
+        client.query(query, value, function (err) {
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          } else {
+            client.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
+              return res.json({
+                message: results.rows
+              });
+            });
+          }
+        });
       });
     }
     /**
@@ -124,15 +176,22 @@ function () {
     value: function editStatus(req, res) {
       var id = parseInt(req.params.report_id, 10);
       var status = req.body.status;
-
-      _reportdb.default.forEach(function (report) {
-        if (report.id === id) {
-          report.status = status || report.status;
-          return res.json({
-            success: 'Updated successfully',
-            message: report
-          });
-        }
+      pool.connect(function (err, client) {
+        var query = 'UPDATE reports SET status=$1 WHERE id=$2';
+        var value = [status, id];
+        client.query(query, value, function (err) {
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          } else {
+            client.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
+              return res.json({
+                message: results.rows
+              });
+            });
+          }
+        });
       });
     }
     /**
@@ -144,15 +203,23 @@ function () {
     key: "deleteReport",
     value: function deleteReport(req, res) {
       var id = parseInt(req.params.report_id, 10);
-
-      _reportdb.default.forEach(function (report) {
-        if (report.id === id) {
-          report.status = 'Rejected';
-          return res.json({
-            success: 'Updated successfully',
-            message: report
-          });
-        }
+      var status = 'Rejected';
+      pool.connect(function (err, client) {
+        var query = 'UPDATE reports SET status=$1 WHERE id=$2';
+        var value = [status, id];
+        client.query(query, value, function (err) {
+          if (err) {
+            res.status(422).json({
+              error: 'Unable to retrieve user'
+            });
+          } else {
+            client.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
+              return res.json({
+                message: results.rows
+              });
+            });
+          }
+        });
       });
     }
   }]);

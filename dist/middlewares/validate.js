@@ -5,20 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _nodeInputValidator = _interopRequireDefault(require("node-input-validator"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var _require = require('express-validator/check'),
-    check = _require.check,
-    validateResult = _require.validateResult;
 /**
  * @class Validator
  */
-
-
 var Validator =
 /*#__PURE__*/
 function () {
@@ -36,18 +35,69 @@ function () {
      * @param {Function} next - next middleware
      */
     value: function checkUser(req, res, next) {
-      check('firstname').isString().isLength({
-        min: 3
+      var validator = new _nodeInputValidator.default(req.body, {
+        firstname: 'required|minLength:3',
+        lastname: 'required|minLength:3',
+        othernames: 'required|minLength:3',
+        email: 'required|email',
+        username: 'required|minLength:3',
+        password: 'required',
+        phonenumber: 'required'
       });
-      var errors = validateResult(req);
+      validator.check().then(function (matched) {
+        if (!matched) {
+          return res.status(422).json(validator.errors);
+        }
 
-      if (!errors.isEmpty()) {
-        return res.status(422).json({
-          errors: errors.array()
-        });
-      }
+        next();
+      });
+    }
+  }, {
+    key: "checkReports",
+    value: function checkReports(req, res, next) {
+      var validator = new _nodeInputValidator.default(req.body, {
+        name: 'required|string',
+        status: 'required|string',
+        latitude: 'required',
+        longitude: 'required',
+        description: 'required'
+      });
+      validator.check().then(function (matched) {
+        if (!matched) {
+          return res.status(422).json(validator.errors);
+        }
 
-      next();
+        next();
+      });
+    }
+  }, {
+    key: "checkEdit",
+    value: function checkEdit(req, res, next) {
+      var validator = new _nodeInputValidator.default(req.body, {
+        latitude: 'required',
+        longitude: 'required'
+      });
+      validator.check().then(function (matched) {
+        if (!matched) {
+          return res.status(422).json(validator.errors);
+        }
+
+        next();
+      });
+    }
+  }, {
+    key: "checkStatus",
+    value: function checkStatus(req, res, next) {
+      var validator = new _nodeInputValidator.default(req.body, {
+        status: 'required|string'
+      });
+      validator.check().then(function (matched) {
+        if (!matched) {
+          return res.status(422).json(validator.errors);
+        }
+
+        next();
+      });
     }
   }]);
 

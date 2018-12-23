@@ -44,20 +44,32 @@ class UserControllers {
    */
   static createUser(req, res) {
     const {
-      firstname, lastname, othernames, username, email, phonenumber, password
+      firstname, lastname, othernames, username, email, phonenumber, password, isAdmin
     } = req.body;
+    // isAdmin = isAdmin || false;
 
     pool.connect((err, client) => {
-      const query = 'INSERT INTO users(firstname, lastname, othernames, username, email, phone, password, registered) VALUES($1,$2,$3,$4,$5,$6,$7,NOW()) RETURNING *';
-      const value = [firstname, lastname, othernames, username, email, phonenumber, password];
+      const query = `INSERT INTO users(firstname, lastname, othernames, username,
+         email, phone, password, is_admin, registered) VALUES($1,$2,$3,$4,$5,$6,$7,$8,NOW()) RETURNING *`;
+      const value = [firstname, lastname, othernames, username,
+        email, phonenumber, password, isAdmin || false];
       client.query(query, value, (err, result) => {
-        if (err) {
-          res.status(422).json({ error: 'Unable to retrieve user' });
-        } else {
-          res.json({
-            message: result.rows
+        client.query('SELECT * FROM users', (err2, result2) => {
+          result2.rows.forEach((resultRows) => {
+            const resultEmail = resultRows.email;
+            if (err || err2) {
+              return res.status(422).json({ error: 'Unable to retrieve user' });
+            }
+            if (resultEmail === email || resultRows.username) {
+              return res.status(404).json({
+                error: 'Email or username exists already'
+              });
+            }
+            return res.json({
+              message: result.rows
+            });
           });
-        }
+        });
       });
     });
   }
@@ -74,13 +86,22 @@ class UserControllers {
             message: 'Pls, enter a valid username'
           });
         }
+        const admin = result.rows[0].is_admin;
+        if (admin === true) {
+          jwt.sign({ username, password, admin }, process.env.secretKey, (err, token) => res.json({
+            greeting: 'Welcome, Admin',
+            // Wrote the token to file so that it can be fetched from it
+            token: fs.writeFile('token.txt', token, (err) => {
+              if (err) throw err;
+            })
+          }));
+        }
 
-        jwt.sign({ username, password }, process.env.secretKey, (err, token) => res.json({
-          result: 'Welcome',
+        jwt.sign({ username, password, admin }, process.env.secretKey, (err, token) => res.json({
+          greeting: 'Welcome, User',
           // Wrote the token to file so that it can be fetched from it
           token: fs.writeFile('token.txt', token, (err) => {
             if (err) throw err;
-            console.log('finished');
           })
         }));
       });

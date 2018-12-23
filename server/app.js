@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 import router from './route/route';
 import userdb from './models/userdb';
 import reportsdb from './models/reportdb';
@@ -16,12 +17,19 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, '/../ui')));
+
 // router.get('/users', userss.getUsers());
 
-app.get('/', (req, res) => res.status(200).json({
-  success: true,
-  message: 'Reporting Inc',
-}));
+app.get('/', (req, res) => {
+  // console.log(__dirname);
+  res.sendFile(path.join(__dirname, 'index.html'));
+
+});
+// res.status(200).json({
+// success: true,
+// message: 'Reporting Inc',
+
 
 // const migrate = async () => {
 //   await createUser();

@@ -23,22 +23,18 @@ describe('GET /v1/users', function () {
 });
 describe('Add new user', function () {
   it('it should get the details of the new users', function (done) {
-    var user = {
-      id: 1,
-      firstname: 'Ben',
-      lastname: 'Rex',
-      othernames: 'Seyi',
-      email: 'rex@gmail.com',
+    var users = {
+      firstname: 'SBen',
+      lastname: 'SRex',
+      othernames: 'DSeyi',
+      email: 'srex@gmail.com',
       phonenumber: '234567890',
-      username: 'Rexben',
-      registered: '12-12-12',
-      is_admin: false,
-      report: []
+      username: 'Dexben',
+      password: '3456789uijh'
     };
 
-    _chai.default.request(_app.default).post('/api/v1/users/').send(user).end(function (err, res) {
+    _chai.default.request(_app.default).post('/api/v1/users').send(users).end(function (err, res) {
       res.should.have.status(200);
-      res.body.should.be.a('Object');
       done(err);
     });
   });

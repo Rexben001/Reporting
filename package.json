@@ -10,7 +10,8 @@
     "test": "nyc mocha --require @babel/register ./server/specs/*.js --timeout 10000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint server/ --fix",
-    "docs": "./node_modules/.bin/jsdoc server/"
+    "docs": "./node_modules/.bin/jsdoc server/",
+    "psql": "psql -d postgres -U rex"
   },
   "repository": {
     "type": "git",
@@ -25,7 +26,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "body-parser": "^1.18.3",
-		"bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.2",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "cors": "^2.8.5",

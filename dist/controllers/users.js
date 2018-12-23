@@ -5,6 +5,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+var _fs = _interopRequireDefault(require("fs"));
+
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 var _userdb = _interopRequireDefault(require("../models/userdb"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -16,9 +22,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var pool = _userdb.default.pool;
+
+_dotenv.default.config(); // console.log(process.env.secretKey);
+
 /**
  * @class UserControllers
  */
+
 
 var UserControllers =
 /*#__PURE__*/
@@ -35,11 +45,10 @@ function () {
      * @param {Object} res - Response
      */
     value: function getUsers(req, res) {
-      pool.connect(function (client, done) {
+      pool.connect(function (err, client) {
         var query = 'SELECT * FROM users';
         client.query(query, function (err, result) {
-          done();
-
+          // done();
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
@@ -52,9 +61,8 @@ function () {
               message: 'No users information found'
             });
           } else {
-            res.json({
-              message: 'Users Information retrieved',
-              users: result.rows
+            return res.json({
+              message: result.rows
             });
           }
         });
@@ -77,33 +85,55 @@ function () {
           email = _req$body.email,
           phonenumber = _req$body.phonenumber,
           password = _req$body.password,
-          registered = _req$body.registered; // const user = {
-      //   id,
-      //   firstname,
-      //   lastname,
-      //   othernames,
-      //   email,
-      //   phonenumber,
-      //   username,
-      //   registered,
-      //   isAdmin
-      // };
+          isAdmin = _req$body.isAdmin; // isAdmin = isAdmin || false;
 
-      pool.connect(function (client, done) {
-        var query = 'INSERT INTO users(firstname, lastname, othernames, username, email, phone, password, registered) VALUES($1,$2,$3,$4,$5,$6,$7,NOW()) RETURNING *';
-        var value = [firstname, lastname, othernames, username, email, phonenumber, password, registered];
+      pool.connect(function (err, client) {
+        var query = "INSERT INTO users(firstname, lastname, othernames, username,\n         email, phone, password, is_admin,registered) VALUES($1,$2,$3,$4,$5,$6,$7$8,\n          is_admin,NOW()) RETURNING *";
+        var value = [firstname, lastname, othernames, username, email, phonenumber, password, isAdmin];
         client.query(query, value, function (err, result) {
-          done();
-
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
             });
           } else {
             res.json({
-              message: result
+              message: result.rows
             });
           }
+        });
+      });
+    }
+  }, {
+    key: "loginUser",
+    value: function loginUser(req, res) {
+      var _req$body2 = req.body,
+          password = _req$body2.password,
+          username = _req$body2.username;
+      pool.connect(function (err, client, done) {
+        var query = 'SELECT * FROM users WHERE username=$1 AND password=$2';
+        var values = [username, password];
+        client.query(query, values, function (error, result) {
+          done();
+
+          if (result.rowCount === 0 || err) {
+            return res.json({
+              message: 'Pls, enter a valid username'
+            });
+          }
+
+          _jsonwebtoken.default.sign({
+            username: username,
+            password: password
+          }, process.env.secretKey, function (err, token) {
+            return res.json({
+              result: 'Welcome',
+              // Wrote the token to file so that it can be fetched from it
+              token: _fs.default.writeFile('token.txt', token, function (err) {
+                if (err) throw err;
+                console.log('finished');
+              })
+            });
+          });
         });
       });
     }
