@@ -11,14 +11,16 @@ const pool = new pg.Pool({
   database: 'report_db',
   password: process.env.password,
   port: 5432
-});
+} || process.env.dbKey);
 
 pool.on('connect', () => {
   // console.log('connected to the Database');
 });
 
 const report = async () => {
-  const reportTable = `CREATE TABLE IF NOT EXISTS reports(
+  const reportTable = `
+  DROP TABLE IF EXISTS reports;
+  CREATE TABLE IF NOT EXISTS reports(
     id SERIAL PRIMARY KEY,
     status VARCHAR(128) NOT NULL,
     name VARCHAR(128) NOT NULL,

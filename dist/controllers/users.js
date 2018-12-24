@@ -88,18 +88,30 @@ function () {
           isAdmin = _req$body.isAdmin; // isAdmin = isAdmin || false;
 
       pool.connect(function (err, client) {
-        var query = "INSERT INTO users(firstname, lastname, othernames, username,\n         email, phone, password, is_admin,registered) VALUES($1,$2,$3,$4,$5,$6,$7$8,\n          is_admin,NOW()) RETURNING *";
-        var value = [firstname, lastname, othernames, username, email, phonenumber, password, isAdmin];
+        var query = "INSERT INTO users(firstname, lastname, othernames, username,\n         email, phone, password, is_admin, registered) VALUES($1,$2,$3,$4,$5,$6,$7,$8,NOW()) RETURNING *";
+        var value = [firstname, lastname, othernames, username, email, phonenumber, password, isAdmin || false];
         client.query(query, value, function (err, result) {
-          if (err) {
-            res.status(422).json({
-              error: 'Unable to retrieve user'
+          client.query('SELECT * FROM users', function (err2, result2) {
+            result2.rows.forEach(function (resultRows) {
+              var resultEmail = resultRows.email;
+
+              if (err || err2) {
+                return res.status(422).json({
+                  error: 'Unable to retrieve user'
+                });
+              }
+
+              if (resultEmail === email || resultRows.username) {
+                return res.status(404).json({
+                  error: 'Email or username exists already'
+                });
+              }
+
+              return res.json({
+                message: result.rows
+              });
             });
-          } else {
-            res.json({
-              message: result.rows
-            });
-          }
+          });
         });
       });
     }
@@ -121,16 +133,34 @@ function () {
             });
           }
 
+          var admin = result.rows[0].is_admin;
+
+          if (admin === true) {
+            _jsonwebtoken.default.sign({
+              username: username,
+              password: password,
+              admin: admin
+            }, process.env.secretKey, function (err, token) {
+              return res.json({
+                greeting: 'Welcome, Admin',
+                // Wrote the token to file so that it can be fetched from it
+                token: _fs.default.writeFile('token.txt', token, function (err) {
+                  if (err) throw err;
+                })
+              });
+            });
+          }
+
           _jsonwebtoken.default.sign({
             username: username,
-            password: password
+            password: password,
+            admin: admin
           }, process.env.secretKey, function (err, token) {
             return res.json({
-              result: 'Welcome',
+              greeting: 'Welcome, User',
               // Wrote the token to file so that it can be fetched from it
               token: _fs.default.writeFile('token.txt', token, function (err) {
                 if (err) throw err;
-                console.log('finished');
               })
             });
           });

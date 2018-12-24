@@ -54,21 +54,22 @@ class UserControllers {
       const value = [firstname, lastname, othernames, username,
         email, phonenumber, password, isAdmin || false];
       client.query(query, value, (err, result) => {
-        client.query('SELECT * FROM users', (err2, result2) => {
-          result2.rows.forEach((resultRows) => {
-            const resultEmail = resultRows.email;
-            if (err || err2) {
-              return res.status(422).json({ error: 'Unable to retrieve user' });
-            }
-            if (resultEmail === email || resultRows.username) {
-              return res.status(404).json({
-                error: 'Email or username exists already'
-              });
-            }
-            return res.json({
-              message: result.rows
-            });
-          });
+        // client.query('SELECT * FROM users', (err2, result2) => {
+        //   result2.rows.forEach((resultRows) => {
+        //     const resultEmail = resultRows.email;
+
+        //     if (resultEmail === email || resultRows.username) {
+        //       return res.status(404).json({
+        //         error: 'Email or username exists already'
+        //       });
+        //     }
+        //   });
+        // });
+        if (err) {
+          return res.status(422).json({ error: 'Unable to retrieve user' });
+        }
+        return res.json({
+          message: result.rows
         });
       });
     });

@@ -13,14 +13,17 @@ const pool = new Pool({
   database: 'report_db',
   password: process.env.password,
   port: 5432
-});
+} || process.env.dbKey);
+
 
 pool.on('connect', () => {
   // console.log('connected to the Database');
 });
 
 const users = async () => {
-  const userTable = `CREATE TABLE IF NOT EXISTS 
+  const userTable = `
+  DROP TABLE IF EXISTS users CASCADE;
+  CREATE TABLE IF NOT EXISTS 
   users(
     user_id SERIAL PRIMARY KEY,
     firstname VARCHAR(128) NOT NULL,

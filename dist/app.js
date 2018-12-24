@@ -11,6 +11,8 @@ var _express = _interopRequireDefault(require("express"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
+var _path = _interopRequireDefault(require("path"));
+
 var _route = _interopRequireDefault(require("./route/route"));
 
 var _userdb = _interopRequireDefault(require("./models/userdb"));
@@ -30,14 +32,16 @@ var app = (0, _express.default)(); // const router = express.Router();
 app.use(_bodyParser.default.urlencoded({
   extended: false
 }));
-app.use(_bodyParser.default.json()); // router.get('/users', userss.getUsers());
+app.use(_bodyParser.default.json());
+app.use(_express.default.static(_path.default.join(__dirname, '/../ui'))); // router.get('/users', userss.getUsers());
 
 app.get('/', function (req, res) {
-  return res.status(200).json({
-    success: true,
-    message: 'Reporting Inc'
-  });
-}); // const migrate = async () => {
+  // console.log(__dirname);
+  res.sendFile(_path.default.join(__dirname, 'index.html'));
+}); // res.status(200).json({
+// success: true,
+// message: 'Reporting Inc',
+// const migrate = async () => {
 //   await createUser();
 //   await createReport();
 // };
