@@ -6,12 +6,16 @@ import dotenv from 'dotenv';
 // const { Pool } = pg;
 dotenv.config();
 const pool = new pg.Pool({
-  user: 'rex',
-  host: 'localhost',
-  database: 'report_db',
-  password: process.env.password,
-  port: 5432
-} || process.env.dbKey);
+  connectionString: process.env.dbKey
+} || {
+    user: 'rex',
+    host: 'localhost',
+    database: 'report_db',
+    password: process.env.password,
+    port: 5432
+  }
+);
+
 
 pool.on('connect', () => {
   // console.log('connected to the Database');
@@ -30,7 +34,7 @@ const report = async () => {
     placedBy INTEGER REFERENCES users(user_id)
 
   );`;
-  await pool.query(reportTable);
+  await pool.query(reportTable).catch(err => { return err });
   // .then((pool.query('SELECT * FROM reports', (err, res) => {
   //   console.log(res.rows);
   // })))
