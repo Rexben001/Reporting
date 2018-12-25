@@ -57,8 +57,6 @@ describe('Get a particular report', () => {
 });
 
 
-
-
 describe('Edit the location of a  particular report', () => {
   it('It should return an updated report of an edited report', ((done) => {
     const location = {

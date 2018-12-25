@@ -24,7 +24,6 @@ app.use(express.static(path.join(__dirname, '/../ui')));
 app.get('/', (req, res) => {
   // console.log(__dirname);
   res.sendFile(path.join(__dirname, 'index.html'));
-
 });
 // res.status(200).json({
 // success: true,
