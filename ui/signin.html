@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="./assets/css/forms.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
         crossorigin='anonymous'>
+    <script src="./assets/js/jquery.js"></script>
+
     <title>Sign in</title>
 </head>
 
 <body>
-    <div class="container"> 
+    <div class="container">
         <div class="overlay">
             <div id="navbar" class="bar">
                 <a href="index.html"><i class="fas fa-desktop"></i></a>
@@ -24,26 +26,27 @@
                 <a href="profile.html"><i class="fas fa-user"></i></a>
                 <a href="#" class="active" id="fa-bars"><i class="fa fa-bars"></i></a>
             </div>
-    <section>
-        <div class="signup-form">
-            <h4>Sign in</h4>
-            <form class="signup">
-                
-                <label for="email"><span class="icon"><i class="fa fa-envelope"></i></span> Email Address</label>
-                <input type="email" id="email" required>
-                <label for="password"><span class="icon"><i class="fa fa-lock"></i></span> Password</label>
-                <input type="password" id="password" required>
-                <br>
-                <input type="submit" value="Sign in">
-            </form>
-            <p class="have-account"><a href="signup.html">Don't have an account? Sign up here</a></p>
+            <section>
+                <div class="signup-form">
+                    <h4>Sign in</h4>
+                    <form class="signup" id="signin">
+
+                        <label for="username"><span class="icon"><i class="fa fa-envelope"></i></span> Username</label>
+                        <input type="text" id="username" required>
+                        <label for="password"><span class="icon"><i class="fa fa-lock"></i></span> Password</label>
+                        <input type="password" id="password" required>
+                        <br>
+                        <input type="submit" value="Sign in">
+                    </form>
+                    <p class="have-account"><a href="signup.html">Don't have an account? Sign up here</a></p>
+                </div>
+            </section>
+            <footer>
+                <p>&copy; Reporting Inc. 2018</p>
+            </footer>
         </div>
-    </section>
-    <footer>
-            <p>&copy; Reporting Inc. 2018</p>
-        </footer>
-        </div>
-<script src="./assets/js/main.js"></script>
+        <script src="./assets/js/main.js"></script>
+        <script src="./assets//js/signin.js"></script>
 </body>
 
 </html>

@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="./assets/css/forms.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
         crossorigin='anonymous'>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script src="./assets/js/jquery.js"></script>
     <title>Sign Up</title>
 </head>
 
@@ -32,23 +33,25 @@
                     <h4>Sign Up</h4>
                     <form class="signup" id="signup">
                         <label for="firstName"><span class="icon"><i class="fa fa-user-circle"></i></span> First Name</label>
-                        <input type="text" id="firstName" required>
+                        <input type="text" id="firstname" required>
                         <label for="lastName"><span class="icon"><i class="fa fa-user-circle"></i></span> Last Name</label>
-                        <input type="text" id="lastName" required>
+                        <input type="text" id="lastname" required>
                         <label for="othernames"><span class="icon"><i class="fa fa-user-circle"></i></span> Other Names</label>
                         <input type="text" id="othernames" required>
+                        <label for="username"><span class="icon"><i class="fa fa-user-circle"></i></span> Username</label>
+                        <input type="text" id="username" required>
                         <label for="email"><span class="icon"><i class="fa fa-envelope"></i></span> Email Address</label>
                         <input type="email" id="email" required>
                         <label for="phoneNumber">Phone Number</label>
-                        <input type="number" id="phoneNumber" required>
+                        <input type="number" id="phonenumber" required>
                         <label for="password"><span class="icon"><i class="fa fa-lock"></i></span> Password</label>
                         <input type="password" id="password" required>
                         <label for="c-password"><span class="icon"><i class="fa fa-lock"></i></span> Confirm Password</label>
-                        <input type="password" id="c-password" required>
+                        <input type="password" id="c_password" required>
                         <br>
                         <input type="submit" value="Sign up">
                     </form>
-                    <p class="have-account"><a href="signin.html">Have an account? Log in here</a></p>
+                    <p class="have-account" id="acc" <a href="signin.html">Have an account? Log in here</a></p>
                 </div>
             </section>
             <footer>
@@ -56,7 +59,7 @@
             </footer>
         </div>
         <script src="./assets/js/main.js"></script>
-        <script src="./assets/js/login_signin.js"></script>
+        <script src="./assets/js/signup.js"></script>
 
 </body>
 

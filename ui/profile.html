@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="./assets/css/forms.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
         crossorigin='anonymous'>
+    <script src="./assets/js/jquery.js"></script>
     <title>My profile</title>
 </head>
 
 <body>
-    <div class="container"> 
+    <div class="container">
         <div class="overlay">
             <div id="navbar" class="bar">
                 <a href="index.html"><i class="fas fa-desktop"></i></a>
@@ -24,22 +25,22 @@
                 <a href="profile.html"><i class="fas fa-user"></i></a>
                 <a href="#" class="active" id="fa-bars"><i class="fa fa-bars"></i></a>
             </div>
-   </div>
-   <section class="profile-section">
-       <div class="profile">
-           <div class="pro">
-           <div class="image">
-               <img src="./assets/img/home.jpg" alt=""> 
-           </div>
-           <div class="user-info">
-               <h5>Rex Ben</h5>
-               <p>rexben.rb@gmail.com</p>
-           </div>
         </div>
-           <div class="total">
-                <h5>Report statistics</h5>
-                <br>
-                <div class="grid-block-profile">
+        <section class="profile-section">
+            <div class="profile">
+                <div class="pro">
+                    <div class="image">
+                        <img src="./assets/img/home.jpg" alt="">
+                    </div>
+                    <div class="user-info">
+                        <h5>Rex Ben</h5>
+                        <p>rexben.rb@gmail.com</p>
+                    </div>
+                </div>
+                <div class="total">
+                    <h5>Report statistics</h5>
+                    <br>
+                    <div class="grid-block-profile">
                         <div>
                             <span>10</span>
                             <p class="status">Resolved</p>
@@ -53,88 +54,97 @@
                             <p class="status">Rejected</p>
                         </div>
                     </div>
-           </div>
-       </div>
-       <div class="show-reports">
-           <div id="overlay-pop" class="overlay-pops">
-<table>
-    <tr>
-    <th>S/N</th>
-    <th>Issue</th>
-    <th>Date/Time</th>
-    <th>Location</th>
-    <th>Status</th>
-    <th>Delete</th>
-</tr>
-<tr>
-        <td>1</td>
-        <td>Fuel Scarcity</td>
-        <td>20-20-20 10:23am</td>
-        <td id="loc">1.246823, 980.344</td>
-        <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
-        <td><button class="delete">Delete</button></td>
-</tr>
-<tr>
-        <td>2</td>
-        <td>Bad roads, it has turned into a stagnant water</td>
-        <td>12-12-12 10:23am</td>
-        <td id="loc">1.246823, 980.344</td>
-        <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
-        <td><button class="delete">Delete</button></td>
-</tr>
-<tr>
-        <td>3</td>
-        <td>High level of crime and decadency</td>
-        <td>12-12-12 10:23am</td>
-        <td id="loc">1.246823, 980.344</td>
-        <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
-        <td><button class="delete">Delete</button></td>
-</tr>
-<tr>
-        <td>3</td>
-        <td>High level of crime and decadency</td>
-        <td>12-12-12 10:23am</td>
-        <td id="loc">1.246823, 980.344</td>
-        <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
-        <td><button class="delete">Delete</button></td>
-</tr>
-<tr>
-        <td>3</td>
-        <td>High level of crime and decadency</td>
-        <td>12-12-12 10:23am</td>
-        <td id="loc">1.246823, 980.344</td>
-        <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
-        <td><button class="delete">Delete</button></td>
-</tr>
-<tr>
-        <td>3</td>
-        <td>High level of crime and decadency</td>
-        <td>12-12-12 10:23am</td>
-        <td id="loc">1.246823, 980.344</td>
-        <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
-        <td><button class="delete">Delete</button></td>
-</tr>
-</table>
-</div>
-       </div>
-   </section>
+                </div>
+            </div>
+            <div class="show-reports">
+                <div id="overlay-pop" class="overlay-pops">
+                    <table id="tt">
+                        <tr>
+                            <th>S/N</th>
+                            <th>Issue</th>
+                            <th>Date/Time</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Delete</th>
+                        </tr>
+                        <!-- <tr>
+                            <td>1</td>
+                            <td>Fuel Scarcity</td>
+                            <td>20-20-20 10:23am</td>
+                            <td><span id="loc">1.246823, 980.344</span><br><a href="#" id="editLo">Edit</a></td>
+                            <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
+                            <td><button class="delete" id="del">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Bad roads, it has turned into a stagnant water</td>
+                            <td>12-12-12 10:23am</td>
+                            <td><span id="loc">1.246823, 980.344</span><br><a href="#" id="editLo">Edit</a></td>
+                            <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
+                            <td><button class="delete" id="del">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>High level of crime and decadency</td>
+                            <td>12-12-12 10:23am</td>
+                            <td><span id="loc">1.246823, 980.344</span><br><a href="#" id="editLo">Edit</a></td>
+                            <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
+                            <td><button class="delete" id="del">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>High level of crime and decadency</td>
+                            <td>12-12-12 10:23am</td>
+                            <td><span id="loc">1.246823, 980.344</span><br><a href="#" id="editLo">Edit</a></td>
+                            <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
+                            <td><button class="delete" id="del">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>High level of crime and decadency</td>
+                            <td>12-12-12 10:23am</td>
+                            <td id="loc">1.246823, 980.344</span><br><a href="#" id="editLo">Edit</a></td>
+                            <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
+                            <td><button class="delete" id="del">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>High level of crime and decadency</td>
+                            <td>12-12-12 10:23am</td>
+                            <td id="loc">1.246823, 980.344</span><br><a href="#" id="editLo">Edit</a></td>
+                            <td><span id="status">Resolved</span><br><a href="#" id="edit">Edit</a></td>
+                            <td><button class="delete" id="del">Delete</button></td>
+                        </tr> -->
+                    </table>
+                </div>
+            </div>
+        </section>
 
-   <div id="popup">
-       <form action="">
-            <label for="location"><span class="icon"><i class="fas fa-compass"></i></span> Location</label>
-                <input type="text" id="location" required>
+        <div id="popup">
+            <form action="">
                 <label for="status"><span class="icon"><i class="fas fa-newspaper"></i></span> Status</label>
                 <input type="text" id="statuses" required>
                 <br>
                 <input type="submit" value="Save" id="save">
             </form>
-   </div>
-    <footer>
+        </div>
+
+        <div id="popupLoc">
+            <form action="">
+                <label for="location"><span class="icon"><i class="fas fa-compass"></i></span> Latitude</label>
+                <input type="text" id="lat" required>
+                <label for="location"><span class="icon"><i class="fas fa-compass"></i></span> Longitude</label>
+                <input type="text" id="log" required>
+                <br>
+                <input type="submit" value="Save" id="saveLoc">
+            </form>
+        </div>
+        <footer>
             <p>&copy; Reporting Inc. 2018</p>
         </footer>
-        </div>
-<script src="./assets/js/main.js"></script>
-<script src="./assets/js/edit_reports.js"></script>
+    </div>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/edit_reports.js"></script>
 </body>
 
 </html>

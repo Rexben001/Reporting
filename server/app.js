@@ -7,7 +7,7 @@ import userdb from './models/userdb';
 import reportsdb from './models/reportdb';
 
 const { users } = userdb;
-const { report } = reportsdb;
+const { reports } = reportsdb;
 
 const app = express();
 // const router = express.Router();
@@ -25,6 +25,13 @@ app.get('/', (req, res) => {
   // console.log(__dirname);
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+// app.use('*', (req, res) => {
+//   // console.log(__dirname);
+//   res.status(404).json({
+//     error: 'Error 404 \nPage not found'
+//   });
+// });
 // res.status(200).json({
 // success: true,
 // message: 'Reporting Inc',
@@ -37,7 +44,7 @@ app.get('/', (req, res) => {
 // migrate();
 const createTable = async () => {
   await users();
-  await report();
+  await reports();
 };
 
 createTable();

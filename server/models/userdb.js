@@ -3,27 +3,28 @@ import 'make-runnable';
 import dotenv from 'dotenv';
 
 
-// const { Pool } = pg;
 dotenv.config();
-// const { Pool } = pg;
 
-const pool = new pg.Pool({
-  connectionString: process.env.dbKey
-} || {
-  user: 'rex',
-  host: 'localhost',
-  database: 'report_db',
-  password: process.env.password,
-  port: 5432
-});
+const pool = new pg.Pool(
+  // {
+  //   connectionString: process.env.dbKey
+  // } ||
+  {
+    user: 'rex',
+    host: 'localhost',
+    database: 'report_db',
+    password: process.env.password,
+    port: 5432
+  }
+);
 
 pool.on('connect', () => {
   // console.log('connected to the Database');
 });
+// DROP TABLE IF EXISTS users CASCADE;
 
 const users = async () => {
   const userTable = `
-  DROP TABLE IF EXISTS users CASCADE;
   CREATE TABLE IF NOT EXISTS 
   users(
     user_id SERIAL PRIMARY KEY,
@@ -39,22 +40,27 @@ const users = async () => {
     UNIQUE(username, email)
   );`;
   await pool.query(userTable).catch(err => err);
-  //   .then((res) => {
-  //     // console.log(res);
-  //     pool.end();
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     pool.end();
-  //   });
 };
+export default { pool, users };
+
+
+
+
+
+//   .then((res) => {
+//     // console.log(res);
+//     pool.end();
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//     pool.end();
+//   });
 
 // pool.on('remove', () => {
 //   console.log('client removed');
 //   process.exit(0);
 // });
 
-export default { pool, users };
 
 
 // const users = [

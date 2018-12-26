@@ -152,7 +152,7 @@ th{
     font-weight: 600;
 }
 
-#edit, #editAdmin{
+#edit, #editAdmin, #editLo{
     border: #000000 solid 1px;
     border-radius: 4px;
     padding: 3px;

@@ -31,7 +31,6 @@ class Validator {
   static checkReports(req, res, next) {
     const validator = new validate(req.body, {
       name: 'required|string',
-      status: 'required|string',
       latitude: 'required',
       longitude: 'required',
       description: 'required',

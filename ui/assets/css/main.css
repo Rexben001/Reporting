@@ -212,7 +212,7 @@ margin-bottom: 50px;}
     float: right;
     margin: 0 auto 70px;
 }
-#popup{
+#popup, #popupLoc{
     display: none;
     position: fixed;
     top: 20%;
@@ -373,7 +373,7 @@ footer p{
             overflow-x: auto;
             padding: 0
         }
-        #popup{
+        #popup, #popupLoc{
             position: absolute;
             top: 80%;
             left: 15%;
@@ -460,3 +460,6 @@ footer p{
         padding: 0
     }
 }
+
+#heady{
+font-weight: 600;}
