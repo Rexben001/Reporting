@@ -46,3 +46,34 @@ $(document).ready(() => {
         $('#phonenumber').val('');
     }
 });
+
+
+
+// function makereq() {
+//     const xhr = new XMLHttpRequest();
+
+//     xhr.onreadystatechange = hi
+//     xhr.open('GET', '/api/v1/reports', true);
+//     xhr.send();
+//     console.log('Working');
+// }
+
+// function hi() {
+//     console.log('234567');
+// }
+
+// document.getElementById('signin').addEventListener('click', () => {
+//     const username = document.getElementById('username').value;
+//     const password = document.getElementById('password').value;
+
+//     sendData('/api/v1/users/login', { username, password });
+// });
+
+
+// function sendData(url, data) {
+//     const xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = hi;
+//     xhr.open('POST', url);
+//     xhr.setRequestHeader('Content-Type', 'application/json');
+//     xhr.send({ username: encodeURIComponent(data.username), password: encodeURIComponent(data.password) });
+// }
