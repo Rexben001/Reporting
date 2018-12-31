@@ -16,7 +16,6 @@ class ReporterControllers {
    */
   static getReport(req, res) {
     try {
-
       pool.connect((err, client) => {
         const query = 'SELECT * FROM reports';
         client.query(query, (err, result) => {

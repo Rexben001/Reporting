@@ -1,368 +1,160 @@
+function fetchAPI() {
+  fetch('/api/v1/reports/1')
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function (data) {
+      // Create and append the li's to the ul
+      data.message.forEach(element => {
+        const realDate = element.time.split('T')[0];
+        const id_no = element.id;
 
-$(document).ready(() => {
-  // SUBMIT FORM
-  $('#saveLoc').click((event) => {
-
-    // Prevent the form from submitting via the browser.
-    event.preventDefault();
-    // if ($('#password').val() !== $('#c_password').val()) {
-    //   return alert('password does not match');
-    // }
-    ajaxPost();
-  });
-
-
-  function ajaxPost() {
-
-    const loc = document.getElementById('loc').innerHTML;
-    const storeLoc = loc.split(',');
-    const lats = storeLoc[0].trim();
-    const logs = storeLoc[1].trim();
-
-    const lat = document.getElementById('lat').value = lats;
-    const log = document.getElementById('log').value = logs;
-
-    const formData = {
-      latitude: lat,
-      longitude: log
-    };
-
-    console.log(formData);
-    // DO POST
-    $.ajax({
-      type: 'PATCH',
-      contentType: 'application/json',
-      url: '/api/v1/reports/1/edit',
-      data: JSON.stringify(formData),
-      dataType: 'json',
-      success(user) {
-        $('#acc').html(`${'<p>'
-          + 'Post Successfully! <br>'
-          + '--> '}${user.firstname} ${user.lastname}</p>`);
-      },
-      error(e) {
-        alert('Error!');
-        console.log('ERROR: ', e);
-      }
+        document.getElementById('tt').innerHTML += `<tr><td>${id_no}</td><td>${element.name}</td><td>${realDate}</td><td><span id=${id_no}>${element.latitude + ', ' + element.longitude}</span><br><a onclick='popedit(${id_no})' id="editLo">Edit</a></td><td><span id=${id_no}>${element.status}</span><br><a onclick="popEditStatus(${id_no})" id="edit">Edit</a></td>
+                 <td><button onclick='deleteForm(${id_no})'class="delete" id=${id_no}>Delete</button></td></tr>`
+      });
     });
-
-    // Reset FormData after Posting
-    resetData();
-  }
-
-  function resetData() {
-    $('#issue').val('');
-    $('#latitude').val('');
-    $('#longitude').val('');
-    $('#description').val('');
-    $('#placedBy').val('');
-  }
+}
+fetchAPI();
+function popedit(id) {
+  // document.getElementById('editLo').addEventListener('click', () => {
+  const popup = document.getElementById('popupLoc');
+  const overlay = document.getElementById('overlay-pop');
+  const locs = document.getElementById(id);
+  const lat = document.getElementById('lat');
+  const log = document.getElementById('log');
 
 
-  // SUBMIT FORM
-  $('#save').click((event) => {
+  const loc = locs.innerText;
+  const storeLoc = loc.split(',');
+  const lats = storeLoc[0].trim();
+  const logs = storeLoc[1].trim();
 
-    // Prevent the form from submitting via the browser.
-    event.preventDefault();
-    // if ($('#password').val() !== $('#c_password').val()) {
-    //   return alert('password does not match');
-    // }
-    ajaxPost2();
-  });
-
-
-  function ajaxPost2() {
-
-
-
-    const formData = {
-      status: $('#statuses').val(),
-    };
-
-    console.log(formData);
-    // DO POST
-    $.ajax({
-      type: 'PATCH',
-      contentType: 'application/json',
-      url: '/api/v1/reports/1/status',
-      data: JSON.stringify(formData),
-      dataType: 'json',
-      success(user) {
-        $('#acc').html(`${'<p>'
-          + 'Post Successfully! <br>'
-          + '--> '}${user.firstname} ${user.lastname}</p>`);
-      },
-      error(e) {
-        alert('Error!');
-        console.log('ERROR: ', e);
-      }
-    });
-
-    // Reset FormData after Posting
-    resetData();
-  }
-
-  function resetData() {
-    $('#issue').val('');
-    $('#latitude').val('');
-    $('#longitude').val('');
-    $('#description').val('');
-    $('#placedBy').val('');
-  }
-
-  // SUBMIT FORM
-  $('#save').click((event) => {
-
-    // Prevent the form from submitting via the browser.
-    event.preventDefault();
-    // if ($('#password').val() !== $('#c_password').val()) {
-    //   return alert('password does not match');
-    // }
-    ajaxPost3();
-  });
-
-
-  function ajaxPost3() {
-
-
-
-    const formData = {
-      status: $('#statuses').val(),
-    };
-
-    console.log(formData);
-    // DO POST
-    $.ajax({
-      type: 'PATCH',
-      contentType: 'application/json',
-      url: '/api/v1/reports/1/status',
-      data: JSON.stringify(formData),
-      dataType: 'json',
-      success(user) {
-        $('#acc').html(`${'<p>'
-          + 'Post Successfully! <br>'
-          + '--> '}${user.firstname} ${user.lastname}</p>`);
-      },
-      error(e) {
-        alert('Error!');
-        console.log('ERROR: ', e);
-      }
-    });
-
-    // Reset FormData after Posting
-    resetData();
-  }
-
-  function resetData() {
-    $('#issue').val('');
-    $('#latitude').val('');
-    $('#longitude').val('');
-    $('#description').val('');
-    $('#placedBy').val('');
-  }
-
-  // SUBMIT FORM
-  $('#save').click((event) => {
-
-    // Prevent the form from submitting via the browser.
-    event.preventDefault();
-    // if ($('#password').val() !== $('#c_password').val()) {
-    //   return alert('password does not match');
-    // }
-    ajaxPost4();
-  });
-
-
-  function ajaxPost4() {
-
-
-
-    const formData = {
-      status: $('#statuses').val(),
-    };
-
-    console.log(formData);
-    // DO POST
-    $.ajax({
-      type: 'PATCH',
-      contentType: 'application/json',
-      url: '/api/v1/reports/1/status',
-      data: JSON.stringify(formData),
-      dataType: 'json',
-      success(user) {
-        $('#acc').html(`${'<p>'
-          + 'Post Successfully! <br>'
-          + '--> '}${user.firstname} ${user.lastname}</p>`);
-      },
-      error(e) {
-        alert('Error!');
-        console.log('ERROR: ', e);
-      }
-    });
-
-    // Reset FormData after Posting
-    resetData();
-  }
-
-  function resetData() {
-    $('#issue').val('');
-    $('#latitude').val('');
-    $('#longitude').val('');
-    $('#description').val('');
-    $('#placedBy').val('');
-  }
-
-  // SUBMIT FORM
-  $('#del').click((event) => {
-
-    // Prevent the form from submitting via the browser.
-    event.preventDefault();
-    // if ($('#password').val() !== $('#c_password').val()) {
-    //   return alert('password does not match');
-    // }
-    ajaxPost5();
-  });
-
-
-  function ajaxPost5() {
-
-
-
-    const formData = {
-      status: 'Rejected',
-    };
-
-    console.log(formData);
-    // DO POST
-    $.ajax({
-      type: 'PATCH',
-      contentType: 'application/json',
-      url: '/api/v1/reports/1/cancel',
-      data: JSON.stringify(formData),
-      dataType: 'json',
-      success(user) {
-        $('#acc').html(`${'<p>'
-          + 'Post Successfully! <br>'
-          + '--> '}${user.firstname} ${user.lastname}</p>`);
-      },
-      error(e) {
-        alert('Error!');
-        console.log('ERROR: ', e);
-      }
-    });
-
-    // Reset FormData after Posting
-  }
-
-
-
-  // DO GET
-  function ajaxGet() {
-    $.ajax({
-      type: "GET",
-      url: "/api/v1/reports/1",
-      success: function (result) {
-
-        for (i in result.message) {
-          document.getElementById('tt').innerHTML += `<tr><td>${result.message[i].id}</td><td>${result.message[i].name}</td><td>${result.message[i].time}</td><td>${result.message[i].latitude + ', ' + result.message[i].longitude}</span><br><a href="#" id="editLo">Edit</a></td><td><span id="status">${result.message[i].status}</span><br><a href="#" id="edit">Edit</a></td>
-          <td><button class="delete" id="del">Delete</button></td></tr>`
-        }
-
-      },
-      error: function (e) {
-        $("#getResultDiv").html("<strong>Error</strong>");
-        console.log("ERROR: ", e);
-      }
-    });
-  }
-  ajaxGet();
-  document.getElementById('edit').addEventListener('click', () => {
-    const popup = document.getElementById('popup');
-    const overlay = document.getElementById('overlay-pop');
-    // const locs = document.getElementById('loc');
-    const stat = document.getElementById('status');
-    // const location = document.getElementById('location');
-    const statuses = document.getElementById('statuses');
-
-
-    // const loc = locs.innerText;
-    const status = stat.innerText;
-
-
-    // Split the value of Status to remove Edit from the text
-    // let sta = status.split('E');
-    // let statusValue = sta[0];
-
-
-    if (popup.style.display === 'block') {
-      popup.style.display = 'none';
-      overlay.className = 'overlay-pops';
-    } else {
-      popup.style.display = 'block';
-      overlay.className = 'overlay-popup';
-      // location.value = loc;
-      statuses.value = status;
-    }
-  });
-
-  document.getElementById('save').addEventListener('click', () => {
-    const popup = document.getElementById('popup');
-    const overlay = document.getElementById('overlay-pop');
-    // const locs = document.getElementById('loc');
-    const stat = document.getElementById('status');
-
-    // const location = document.getElementById('location');
-    const statuses = document.getElementById('statuses');
-    console.log(statuses.value);
-
+  if (popup.style.display === 'block') {
     popup.style.display = 'none';
     overlay.className = 'overlay-pops';
-    // locs.innerHTML = location.value;
-    stat.innerHTML = statuses.value;
-  });
+  } else {
+    popup.style.display = 'block';
+    overlay.className = 'overlay-popup';
+    lat.value = lats;
+    log.value = logs;
+  }
+}
+function popEditStatus(id) {
+  const popup = document.getElementById('popup');
+  const overlay = document.getElementById('overlay-pop');
+  const stat = document.getElementById(id);
+  const statuses = document.getElementById('statuses');
 
+  const status = stat.innerText;
 
-  document.getElementById('editLo').addEventListener('click', () => {
-    const popup = document.getElementById('popupLoc');
-    const overlay = document.getElementById('overlay-pop');
-    const locs = document.getElementById('loc');
-    const lat = document.getElementById('lat');
-    const log = document.getElementById('log');
-
-
-    const loc = locs.innerText;
-    const storeLoc = loc.split(',');
-    const lats = storeLoc[0].trim();
-    const logs = storeLoc[1].trim();
-    console.log(lat, log);
-
-    // let sta = status.split('E');
-    // Split the value of Status to remove Edit from the text
-    // let statusValue = sta[0];
-
-
-    if (popup.style.display === 'block') {
-      popup.style.display = 'none';
-      overlay.className = 'overlay-pops';
-    } else {
-      popup.style.display = 'block';
-      overlay.className = 'overlay-popup';
-      lat.value = lats;
-      log.value = logs;
-    }
-  });
-
-  document.getElementById('saveLoc').addEventListener('click', () => {
-    const popup = document.getElementById('popupLoc');
-    const overlay = document.getElementById('overlay-pop');
-    const locs = document.getElementById('loc');
-
-    const lat = document.getElementById('lat');
-    const log = document.getElementById('log');
-
-
+  if (popup.style.display === 'block') {
     popup.style.display = 'none';
     overlay.className = 'overlay-pops';
-    locs.innerHTML = lat.value + ', ' + log.value;
-  });
+  } else {
+    popup.style.display = 'block';
+    overlay.className = 'overlay-popup';
+    statuses.value = status;
+
+  }
+
+}
+
+
+
+function editLocation(id) {
+  // e.preventDefault();
+  const popup = document.getElementById('popupLoc');
+  const overlay = document.getElementById('overlay-pop');
+  const locs = document.getElementById(id);
+
+  const lat = document.getElementById('lat').value;
+  const log = document.getElementById('log').value;
+
+
+  popup.style.display = 'none';
+  overlay.className = 'overlay-pops';
+  locs.innerHTML = lat + ', ' + log;
+
+  const formData = {
+    latitude: lat,
+    longitude: log
+
+  };
+  console.log(formData);
+
+
+  fetch('/api/v1/reports/2/edit', {
+    method: 'PATCH',
+    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+    .then(response => {
+      if (response) {
+        redirect: window.location.replace("../profile.html")
+        console.log(response);
+      }
+    }).catch(error => console.error('Error:', error));
+}
+
+document.getElementById('saveLoc').addEventListener('submit', editLocation());
+
+
+
+
+
+
+function deleteForm(id) {
+
+  const formData = {
+    status: 'Rejected',
+  };
+
+  fetch(`/api/v1/reports/${id}/cancel`, {
+    method: 'PATCH',
+    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+
+  }).then(res => res.json())
+    .then(response => {
+      if (response) {
+        redirect: window.location.replace("../profile.html")
+      }
+    }).catch(error => console.error('Error:', error));
+}
+
+
+
+document.getElementById('save').addEventListener('click', () => {
+  const popup = document.getElementById('popup');
+  const overlay = document.getElementById('overlay-pop');
+  const stat = document.getElementById('status');
+
+  const statuses = document.getElementById('statuses').value;
+
+  popup.style.display = 'none';
+  overlay.className = 'overlay-pops';
+  stat.innerHTML = statuses;
+
+  const formData = {
+    status: statuses,
+  };
+
+  fetch('/api/v1/reports/2/status', {
+    method: 'PATCH',
+    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json())
+    .then(response => {
+      if (response) {
+        redirect: window.location.replace("../profile.html")
+      }
+    })
+    .catch(error => console.error('Error:', error));
 });
+
+
+
