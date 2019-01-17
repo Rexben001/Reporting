@@ -5,16 +5,14 @@ import dotenv from 'dotenv';
 
 // const { Pool } = pg;
 dotenv.config();
-const { Pool } = pg;
-
-const pool = new Pool({
-  user: 'rex',
-  host: 'localhost',
-  database: 'report_db',
-  password: process.env.password,
-  port: 5432
+const pool = new pg.Pool({
+//   user: 'rex',
+//   host: 'localhost',
+//   database: 'report_db',
+//   password: process.env.password,
+//   port: 5432
+ connectionString: 'postgres://qmteovsj:Z8uaA3TyhniBQZDd6lBtZAQXRveoEfzt@baasu.db.elephantsql.com:5432/qmteovsj'
 });
-
 pool.on('connect', () => {
   // console.log('connected to the Database');
 });
