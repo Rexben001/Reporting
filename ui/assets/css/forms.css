@@ -23,6 +23,9 @@
   align-content: flex-start;
   
 }
+textarea#description{
+    display: block;
+}
 
 .cards > div{
    background: white;

@@ -1,19 +1,40 @@
-function fetchAPI() {
-  fetch('/api/v1/reports/1')
-    .then((resp) => resp.json()) // Transform the data into json
-    .then(function (data) {
-      // Create and append the li's to the ul
-      data.message.forEach(element => {
-        const realDate = element.time.split('T')[0];
-        const id_no = element.id;
-
-        document.getElementById('tt').innerHTML += `<tr><td>${id_no}</td><td>${element.name}</td><td>${realDate}</td><td><span id=${id_no}>${element.latitude + ', ' + element.longitude}</span><textarea id=${id_no}>${element.latitude + ', ' + element.longitude}</textarea><br><a onclick='popedit(${id_no})' id="editLo">Edit</a></td><td><span id=${id_no}>${element.status}</span><textarea id=${id_no}>${element.status}</textarea><br><a onclick="popEditStatus(${id_no})" id="edit">Edit</a></td>
-                 <td><button onclick='deleteForm(${id_no})'class="delete" id=${id_no}>Delete</button></td></tr>`;
-      });
-    });
+const getToken = () => {
+  const tokenStr = window.localStorage.getItem('user_token');
+  console.log(tokenStr);
+  if (tokenStr) {
+    return tokenStr;
+  } else {
+    return 'No token returned'
+  }
 }
-fetchAPI();
+
+fetch('/api/v1/reports/',
+  {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "authorization": `Bearer ${getToken()}`
+    }
+  })
+  .then((resp) => resp.json()) // Transform the data into json
+  .then(function (data) {
+    // console.log(req.user);
+    // Create and append the li's to the ul
+    data.message.forEach(element => {
+      const realDate = element.time.split('T')[0];
+      const id_no = element.id;
+
+      document.getElementById('tt').innerHTML += `<tr><td>${id_no}</td><td>${element.name}</td><td>${realDate}</td><td><span id=${id_no}>${element.latitude + ', ' + element.longitude}</span><br><a onclick='popedit(${id_no})' id="saveLoc">Save</a><a onclick='popedit(${id_no})' id="editLo">Edit</a></td><td><span id=${id_no}>${element.status}</span><textarea id='${id_no}'>${element.status}</textarea><br><a onclick="popEditStatus(${id_no})" id="edit">Edit</a><a onclick="popEditStatus(${id_no})" id="edit">Save</a></td>
+                 <td><button onclick='deleteForm(${id_no})'class="delete" id=${id_no}>Delete</button></td></tr>`;
+    });
+  });
+
+function editLink() {
+  window.location.href;
+}
+
 function popedit(id) {
+  // document.getElementById('editLo').addEventListener('click', () => {
   const popup = document.getElementById('popupLoc');
   const overlay = document.getElementById('overlay-pop');
   const locs = document.getElementById(id);
@@ -37,28 +58,33 @@ function popedit(id) {
   }
 }
 function popEditStatus(id) {
-  const popup = document.getElementById('popup');
+  // const popup = document.getElementById('popup');
   // const overlay = document.getElementById('overlay-pop');
   const stat = document.getElementById(id);
   const statuses = document.getElementById('statuses');
-  const edit = document.getElementById('edit');
-  const text = document.getElementsByTagName('textarea').id;
+  const texts = document.getElementsByTagName('textarea');
+  const ids = id.toString();
 
-  if (edit.value === 'Edit') {
-    console.log(text);
+  for (let i = 0; i < texts.length; i++) {
+    // console.log(texts[i].id);
+    if (texts[i].id === ids) {
+      texts[i].display = 'block';
+      stat.display = 'none';
+      console.log(id)
+    }
   }
 
   const status = stat.innerText;
 
-  if (popup.style.display === 'block') {
-    popup.style.display = 'none';
-    // overlay.className = 'overlay-pops';
-  } else {
-    popup.style.display = 'block';
-    // overlay.className = 'overlay-popup';
-    statuses.value = status;
+  // if (popup.style.display === 'block') {
+  //   popup.style.display = 'none';
+  //   // overlay.className = 'overlay-pops';
+  // } else {
+  //   popup.style.display = 'block';
+  //   // overlay.className = 'overlay-popup';
+  //   statuses.value = status;
 
-  }
+  // }
 
 }
 
@@ -101,7 +127,7 @@ function editLocation(id) {
     }).catch(error => console.error('Error:', error));
 }
 
-// document.getElementById('saveLoc').addEventListener('submit', editLocation());
+document.getElementById('saveLoc').addEventListener('submit', editLocation());
 
 
 
@@ -131,35 +157,35 @@ function deleteForm(id) {
 
 
 
-document.getElementById('save').addEventListener('click', () => {
-  const popup = document.getElementById('popup');
-  const overlay = document.getElementById('overlay-pop');
-  const stat = document.getElementById('status');
+// document.getElementById('save').addEventListener('click', () => {
+//   const popup = document.getElementById('popup');
+//   const overlay = document.getElementById('overlay-pop');
+//   const stat = document.getElementById('status');
 
-  const statuses = document.getElementById('statuses').value;
+//   const statuses = document.getElementById('statuses').value;
 
-  popup.style.display = 'none';
-  overlay.className = 'overlay-pops';
-  stat.innerHTML = statuses;
+//   popup.style.display = 'none';
+//   overlay.className = 'overlay-pops';
+//   stat.innerHTML = statuses;
 
-  const formData = {
-    status: statuses,
-  };
+//   const formData = {
+//     status: statuses,
+//   };
 
-  fetch('/api/v1/reports/2/status', {
-    method: 'PATCH',
-    body: JSON.stringify(formData),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(res => res.json())
-    .then(response => {
-      if (response) {
-        redirect: window.location.replace("../profile.html")
-      }
-    })
-    .catch(error => console.error('Error:', error));
-});
+//   fetch('/api/v1/reports/2/status', {
+//     method: 'PATCH',
+//     body: JSON.stringify(formData),
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   }).then(res => res.json())
+//     .then(response => {
+//       if (response) {
+//         redirect: window.location.replace("../profile.html")
+//       }
+//     })
+//     .catch(error => console.error('Error:', error));
+// });
 
 
 

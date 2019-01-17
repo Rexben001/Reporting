@@ -155,6 +155,15 @@ section{
     background: #cccaca;
 }
 
+#editReport{
+    width: 50%;
+    margin: 30px auto;
+    border: #b6b0b0 solid 1px;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 15px 10px 10px 10px #cccaca;
+
+}
 .container h4{
 font-size: 1.7rem;
 margin-bottom: 50px;}

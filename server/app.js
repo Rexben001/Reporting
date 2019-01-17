@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import path from 'path';
 import router from './route/route';
 import userdb from './models/userdb';
@@ -17,6 +18,15 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+// app.use(
+//   cors({
+//     origin: '*',
+//     methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
+//     preflightContinue: false,
+//     optionsSuccessStatus: 204
+//   })
+// );
+
 app.use(express.static(path.join(__dirname, '/../ui')));
 
 // router.get('/users', userss.getUsers());
@@ -26,22 +36,12 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// app.use('*', (req, res) => {
-//   // console.log(__dirname);
-//   res.status(404).json({
-//     error: 'Error 404 \nPage not found'
-//   });
+// app.all('/*', function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   next();
 // });
-// res.status(200).json({
-// success: true,
-// message: 'Reporting Inc',
 
-
-// const migrate = async () => {
-//   await createUser();
-//   await createReport();
-// };
-// migrate();
 const createTable = async () => {
   await users();
   await reports();
@@ -50,9 +50,17 @@ const createTable = async () => {
 createTable();
 app.use('/api/v1', router);
 
-app.listen(process.env.PORT || 3000, () => {
+app.use((err, req, res, next) => {
+  res.status(500).send('Something broke!')
+});
+
+const server = app.listen(process.env.PORT || 3000, () => {
   console.log('Started');
 });
+
+process.on('exit', () => server.close())
+process.on('SIGTERM', () => server.close())
+process.on('uncaughtException', () => server.close())
 
 
 export default app;

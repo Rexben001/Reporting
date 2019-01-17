@@ -17,28 +17,34 @@ class UserControllers {
    * @param {Object} res - Response
    */
   static getUsers(req, res) {
-    try {
-      pool.connect((err, client) => {
-        const query = 'SELECT * FROM users';
-        client.query(query, (err, result) => {
-          // done();
-          if (err) {
-            res.status(422).json({ error: 'Unable to retrieve user' });
-          }
-          if (result.rows < 1) {
-            res.status(404).send({
-              status: 'Failed',
-              message: 'No users information found',
-            });
-          } else {
-            return res.json({
-              message: result.rows
-            });
-          }
+    if (req.adminStatus) {
+      try {
+        pool.connect((err, client) => {
+          const query = 'SELECT * FROM users';
+          client.query(query, (err, result) => {
+            // done();
+            if (err) {
+              res.status(422).json({ error: 'Unable to retrieve user' });
+            }
+            if (result.rows < 1) {
+              res.status(404).send({
+                status: 'Failed',
+                message: 'No users information found',
+              });
+            } else {
+              return res.json({
+                message: result.rows
+              });
+            }
+          });
         });
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      res.json({
+        error: 'You are not permitted to view this'
       });
-    } catch (err) {
-      throw err;
     }
   }
 
@@ -50,7 +56,7 @@ class UserControllers {
   static createUser(req, res) {
 
     const {
-      firstname, lastname, othernames, username, email, phonenumber, password, isAdmin
+      firstname, lastname, othernames, username, email, phonenumber, password
     } = req.body;
     try {
       bcrypt.genSalt(10, (err, salt) => {
@@ -61,7 +67,7 @@ class UserControllers {
             const query = `INSERT INTO users(firstname, lastname, othernames, username,
          email, phone, password, is_admin, registered) VALUES($1,$2,$3,$4,$5,$6,$7,$8,NOW()) RETURNING *`;
             const value = [firstname, lastname, othernames, username,
-              email, phonenumber, passwordHash, isAdmin || false];
+              email, phonenumber, passwordHash, false];
             client.query(query, value, (err, result) => {
               // client.query('SELECT * FROM users', (err2, result2) => {
               //   result2.rows.forEach((resultRows) => {
@@ -106,23 +112,24 @@ class UserControllers {
           bcrypt.compare(password, result.rows[0].password).then(isMatch => {
             if (isMatch) {
               const admin = result.rows[0].is_admin;
-              if (admin === true) {
-                jwt.sign({ username, password, admin }, process.env.secretKey, (err, token) => res.json({
-                  greeting: 'Welcome, Admin',
-                  // Wrote the token to file so that it can be fetched from it
-                  token: fs.writeFile('token.txt', token, (err) => {
-                    if (err) throw err;
-                  })
-                }));
-              }
+              const id = result.rows[0].user_id;
 
-              jwt.sign({ username, password, admin }, process.env.secretKey, (err, token) => res.json({
-                greeting: 'Welcome, User',
+              jwt.sign({ username, id, admin }, process.env.secretKey, { expiresIn: '20d' }, (err, token) => res.json({
+                greeting:
+                  `Welcome, ${username}`,
+                token
                 // Wrote the token to file so that it can be fetched from it
-                token: fs.writeFile('token.txt', token, (err) => {
-                  if (err) throw err;
-                })
+                // token: fs.writeFile('token.txt', token, (err) => {
+                //   if (err) throw err;
+                // }
               }));
+              // jwt.sign({ username, password, admin }, process.env.secretKey, (err, token) => res.json({
+              //   greeting: 'Welcome, User',
+              //   // Wrote the token to file so that it can be fetched from it
+              //   token: fs.writeFile('token.txt', token, (err) => {
+              //     if (err) throw err;
+              //   })
+              // }));
             } else {
               res.status(400).json({
                 err: 'password is not correct'
@@ -135,6 +142,90 @@ class UserControllers {
       throw err;
     }
   }
-}
+  static makeAdmin(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const adminStatus = true;
+    try {
+      pool.connect((err, client) => {
+        const query = `UPDATE users SET is_admin=${adminStatus} WHERE user_id=${id}`;
+        client.query(query, (err) => {
+          if (err) {
+            res.status(422).json({ error: 'Unable to retrieve user' });
+          } else {
+            client.query(`SELECT * FROM reports WHERE id=${id}`, (err, results) => res.json({
+              message: results.rows
+            }));
+          }
+        });
+      });
+    } catch (err) {
+      throw err;
+    }
+  }
 
+  static getAUSer(req, res) {
+    const id = parseInt(req.params.id, 10);
+    console.log(req.adminStatus);
+    if (req.adminStatus) {
+      try {
+        pool.connect((err, client) => {
+          const query = `SELECT * FROM users WHERE user_id=${id}`;
+          client.query(query, (err, result) => {
+            // done();
+            if (err) {
+              res.status(422).json({ error: 'Unable to retrieve user' });
+            }
+            if (result.rows < 1) {
+              res.status(404).send({
+                status: 'Failed',
+                message: 'No users information found',
+              });
+            } else {
+              return res.json({
+                message: result.rows
+              });
+            }
+          });
+        });
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      res.json({ message: 'You dont have the admin priviledge' });
+    }
+  }
+
+  static getAReportUseer(req, res) {
+    const id = parseInt(req.params.report_id, 10);
+    if (req.adminStatus) {
+      try {
+        pool.connect((err, client) => {
+          const query = `SELECT * FROM reports where placedby=${id};`;
+          client.query(query, (err, result) => {
+            // done();
+            if (err) {
+              res.status(422).json({ error: 'Unable to retrieve user' });
+            }
+            if (result.rows < 1) {
+              res.status(404).send({
+                status: 'Failed',
+                message: 'No users information found',
+              });
+            } else {
+              return res.json({
+                success: 'True',
+                message: result.rows
+              });
+            }
+          });
+        });
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      res.json({ message: 'No admin privilege' })
+    }
+  }
+
+}
 export default UserControllers;

@@ -1,8 +1,27 @@
-fetch('/api/v1/reports/1')
+const getToken = () => {
+    const tokenStr = window.localStorage.getItem('user_token');
+    console.log(tokenStr);
+    if (tokenStr) {
+        return tokenStr;
+    } else {
+        return 'No token returned'
+    }
+}
+
+fetch('/api/v1/reports/',
+    {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "authorization": `Bearer ${getToken()}`
+        }
+    })
     .then((resp) => resp.json()) // Transform the data into json
     .then(function (data) {
+        // console.log(req.user);
         // Create and append the li's to the ul
         data.message.forEach(element => {
+            console.log(element);
             const realDate = element.time.split('T')[0];
             document.getElementById('cards').innerHTML += `<div><p><span id="heady">Issue: </span> ${element.name} </p><p><span id="heady">Status: </span> ${element.status} 
                               </p><p><span id="heady">Date: </span> ${realDate} 
@@ -20,14 +39,16 @@ function createPost(e) {
         latitude: document.getElementById('latitude').value,
         longitude: document.getElementById('longitude').value,
         description: document.getElementById('description').value,
-        placedby: document.getElementById('placedby').value,
+        // placedby: document.getElementById('placedby').value,
 
     }
     fetch('/api/v1/reports', {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(data), // data can be `string` or {object}!
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "authorization": `Bearer ${getToken()}`
+
         }
     }).then(res => res.json())
         .then(response => {
@@ -46,7 +67,7 @@ function resetData() {
     document.getElementById('latitude').value = '';
     document.getElementById('longitude').value = '';
     document.getElementById('description').value = '';
-    document.getElementById('placedby').value = '';
+    // document.getElementById('placedby').value = '';
 }
 
 document.getElementById('createReport').addEventListener('submit', createPost);
