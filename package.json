@@ -6,8 +6,8 @@
   "scripts": {
     "build": "babel server -d dist",
     "start": "npm run build &&  node dist/app.js",
-    "start-dev": "nodemon --require @babel/register server/app.js",
-    "test": "nyc mocha --require @babel/register ./server/specs/*.js --timeout 10000 --exit",
+    "start-dev": "set NODE_ENV=test && nodemon --require @babel/register server/app.js",
+    "test": "set NODE_ENV=test && nyc mocha --require @babel/register ./server/specs/*.js --timeout 10000 --exit",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint server/ --fix",
     "docs": "./node_modules/.bin/jsdoc server/",
@@ -45,8 +45,14 @@
     "passport-local": "^1.0.0",
     "permission": "^1.1.0",
     "pg": "^7.7.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "request": "^2.88.0",
-    "uuid": "^3.3.2"
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0",
+    "uuid": "^3.3.2",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.0",

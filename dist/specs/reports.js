@@ -12,27 +12,6 @@ _chai.default.should();
 
 _chai.default.use(_chaiHttp.default);
 
-describe('GET /v1/reports', function () {
-  it('it should get all reports', function (done) {
-    _chai.default.request(_app.default).get('/api/v1/reports').end(function (err, res) {
-      res.should.have.status(200);
-      res.body.message.should.be.a('Array');
-      res.body.message[0].name.should.equal('Poor Security');
-      done(err);
-    });
-  });
-});
-describe('Get a particular report', function () {
-  it('It should return a particular report created by the user', function (done) {
-    _chai.default.request(_app.default).get('/api/v1/reports/1').end(function (err, res) {
-      res.should.have.status(200);
-      res.body.success.should.equal('True'); // res.body.message[0].status.should.equal('Rejected');
-      // res.body.message[0].latitude.should.equal('123.3434');
-
-      done(err);
-    });
-  });
-});
 describe('post a report', function () {
   it('It should return the details of the newly created report', function (done) {
     var report = {
@@ -47,6 +26,27 @@ describe('post a report', function () {
     _chai.default.request(_app.default).post('/api/v1/reports').send(report).end(function (err, res) {
       res.should.have.status(200);
       res.body.message[0].should.have.property('name').equal('Security challenges');
+      res.body.message[0].latitude.should.equal('123.3434');
+      done(err);
+    });
+  });
+});
+describe('GET /v1/reports', function () {
+  it('it should get all reports', function (done) {
+    _chai.default.request(_app.default).get('/api/v1/reports').end(function (err, res) {
+      res.should.have.status(200);
+      res.body.message.should.be.a('Array');
+      res.body.message[0].name.should.equal('Security challenges');
+      done(err);
+    });
+  });
+});
+describe('Get a particular report', function () {
+  it('It should return a particular report created by the user', function (done) {
+    _chai.default.request(_app.default).get('/api/v1/reports/1').end(function (err, res) {
+      res.should.have.status(200);
+      res.body.success.should.equal('True');
+      res.body.message[0].status.should.equal('Rejected');
       res.body.message[0].latitude.should.equal('123.3434');
       done(err);
     });

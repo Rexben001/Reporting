@@ -11,12 +11,12 @@ router.get('/users', UserControllers.getUsers);
 router.post('/users', Validation.checkUser, UserControllers.createUser);
 router.post('/users/login', UserControllers.loginUser);
 
-router.get('/reports', Auth.verifyUser, ReportControllers.getReport);
-router.post('/reports', Validation.checkReports, Auth.verifyUser, ReportControllers.createReport);
-router.get('/reports/:report_id', Auth.verifyUser, ReportControllers.getAReport);
-router.patch('/reports/:report_id/edit', Validation.checkEdit, Auth.verifyUser, ReportControllers.editLocation);
-router.patch('/reports/:report_id/status', Validation.checkStatus, Auth.verifyUser, ReportControllers.editStatus);
-router.patch('/reports/:report_id/cancel', Auth.verifyUser, ReportControllers.deleteReport);
+router.get('/reports', ReportControllers.getReport);
+router.post('/reports', Validation.checkReports, ReportControllers.createReport);
+router.get('/reports/:report_id', ReportControllers.getAReport);
+router.patch('/reports/:report_id/edit', Validation.checkEdit, ReportControllers.editLocation);
+router.patch('/reports/:report_id/status', Validation.checkStatus, ReportControllers.editStatus);
+router.patch('/reports/:report_id/cancel', ReportControllers.deleteReport);
 
 
 export default router;

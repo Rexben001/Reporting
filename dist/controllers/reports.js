@@ -38,10 +38,9 @@ function () {
      * @returns {json} reports
      */
     value: function getReport(req, res) {
-      pool.connect(function (err, client) {
+      try {
         var query = 'SELECT * FROM reports';
-        client.query(query, function (err, result) {
-          // done();
+        pool.query(query, function (err, result) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
@@ -59,7 +58,9 @@ function () {
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
     /**
      * @param {Object} req - Request
@@ -72,16 +73,15 @@ function () {
     value: function createReport(req, res) {
       var _req$body = req.body,
           name = _req$body.name,
-          status = _req$body.status,
           latitude = _req$body.latitude,
           longitude = _req$body.longitude,
           description = _req$body.description,
-          placedBy = _req$body.placedBy;
-      pool.connect(function (err, client) {
-        var query = 'INSERT INTO reports(name, status, latitude, longitude, description, placedBy) VALUES($1,$2,$3,$4,$5,$6) RETURNING *';
-        var value = [name, status, latitude, longitude, description, placedBy];
-        client.query(query, value, function (err, result) {
-          // done();
+          placedby = _req$body.placedby;
+
+      try {
+        var query = 'INSERT INTO reports(name, latitude, longitude, description, placedby, status) VALUES($1,$2,$3,$4,$5,\'Pending\') RETURNING *';
+        var value = [name, latitude, longitude, description, placedby];
+        pool.query(query, value, function (err, result) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
@@ -99,7 +99,9 @@ function () {
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
     /**
      * @param {Object} req - Request
@@ -110,10 +112,10 @@ function () {
     key: "getAReport",
     value: function getAReport(req, res) {
       var id = parseInt(req.params.report_id, 10);
-      pool.connect(function (err, client) {
-        var query = "SELECT * FROM reports where id=".concat(id, ";");
-        client.query(query, function (err, result) {
-          // done();
+
+      try {
+        var query = "SELECT * FROM reports where placedby=".concat(id, ";");
+        pool.query(query, function (err, result) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
@@ -132,7 +134,9 @@ function () {
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
     /**
     * @param {Object} req - Request
@@ -145,26 +149,27 @@ function () {
       var id = parseInt(req.params.report_id, 10);
       var _req$body2 = req.body,
           latitude = _req$body2.latitude,
-          longitude = _req$body2.longitude; // report.latitude = latitude || report.latitude;
-      // report.longitude = longitude || report.longitude;
+          longitude = _req$body2.longitude;
 
-      pool.connect(function (err, client) {
+      try {
         var query = 'UPDATE reports SET latitude=$1, longitude=$2 WHERE id=$3';
         var value = [latitude, longitude, id];
-        client.query(query, value, function (err) {
+        pool.query(query, value, function (err) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
             });
           } else {
-            client.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
+            pool.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
               return res.json({
                 message: results.rows
               });
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
     /**
     * @param {Object} req - Request
@@ -176,23 +181,26 @@ function () {
     value: function editStatus(req, res) {
       var id = parseInt(req.params.report_id, 10);
       var status = req.body.status;
-      pool.connect(function (err, client) {
+
+      try {
         var query = 'UPDATE reports SET status=$1 WHERE id=$2';
         var value = [status, id];
-        client.query(query, value, function (err) {
+        pool.query(query, value, function (err) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
             });
           } else {
-            client.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
+            pool.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
               return res.json({
                 message: results.rows
               });
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
     /**
     * @param {string} req - The title of the book.
@@ -204,23 +212,26 @@ function () {
     value: function deleteReport(req, res) {
       var id = parseInt(req.params.report_id, 10);
       var status = 'Rejected';
-      pool.connect(function (err, client) {
+
+      try {
         var query = 'UPDATE reports SET status=$1 WHERE id=$2';
         var value = [status, id];
-        client.query(query, value, function (err) {
+        pool.query(query, value, function (err) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
             });
           } else {
-            client.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
+            pool.query("SELECT * FROM reports WHERE id=".concat(id), function (err, results) {
               return res.json({
                 message: results.rows
               });
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
   }]);
 

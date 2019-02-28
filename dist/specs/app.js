@@ -15,8 +15,8 @@ _chai.default.use(_chaiHttp.default);
 describe('GET /', function () {
   it('it should get homepage', function (done) {
     _chai.default.request(_app.default).get('/').end(function (err, res) {
-      res.should.have.status(200);
-      res.body.should.have.property('message').equal('Reporting Inc');
+      res.should.have.status(200); // res.body.should.have.property('message').equal('Reporting Inc');
+
       done(err);
     });
   });

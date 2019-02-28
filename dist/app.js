@@ -26,7 +26,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var users = _userdb.default.users;
-var report = _reportdb.default.report;
+var reports = _reportdb.default.reports;
 var app = (0, _express.default)(); // const router = express.Router();
 
 app.use(_bodyParser.default.urlencoded({
@@ -38,7 +38,13 @@ app.use(_express.default.static(_path.default.join(__dirname, '/../ui'))); // ro
 app.get('/', function (req, res) {
   // console.log(__dirname);
   res.sendFile(_path.default.join(__dirname, 'index.html'));
-}); // res.status(200).json({
+}); // app.use('*', (req, res) => {
+//   // console.log(__dirname);
+//   res.status(404).json({
+//     error: 'Error 404 \nPage not found'
+//   });
+// });
+// res.status(200).json({
 // success: true,
 // message: 'Reporting Inc',
 // const migrate = async () => {
@@ -62,7 +68,7 @@ function () {
 
           case 2:
             _context.next = 4;
-            return report();
+            return reports();
 
           case 4:
           case "end":

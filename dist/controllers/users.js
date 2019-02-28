@@ -11,6 +11,8 @@ var _fs = _interopRequireDefault(require("fs"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
+
 var _userdb = _interopRequireDefault(require("../models/userdb"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -45,10 +47,9 @@ function () {
      * @param {Object} res - Response
      */
     value: function getUsers(req, res) {
-      pool.connect(function (err, client) {
+      try {
         var query = 'SELECT * FROM users';
-        client.query(query, function (err, result) {
-          // done();
+        pool.query(query, function (err, result) {
           if (err) {
             res.status(422).json({
               error: 'Unable to retrieve user'
@@ -66,7 +67,9 @@ function () {
             });
           }
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
     /**
      * @param {Object} req - Request
@@ -85,35 +88,32 @@ function () {
           email = _req$body.email,
           phonenumber = _req$body.phonenumber,
           password = _req$body.password,
-          isAdmin = _req$body.isAdmin; // isAdmin = isAdmin || false;
+          isAdmin = _req$body.isAdmin;
 
-      pool.connect(function (err, client) {
-        var query = "INSERT INTO users(firstname, lastname, othernames, username,\n         email, phone, password, is_admin, registered) VALUES($1,$2,$3,$4,$5,$6,$7,$8,NOW()) RETURNING *";
-        var value = [firstname, lastname, othernames, username, email, phonenumber, password, isAdmin || false];
-        client.query(query, value, function (err, result) {
-          client.query('SELECT * FROM users', function (err2, result2) {
-            result2.rows.forEach(function (resultRows) {
-              var resultEmail = resultRows.email;
-
-              if (err || err2) {
+      try {
+        _bcryptjs.default.genSalt(10, function (err, salt) {
+          _bcryptjs.default.hash(password, salt, function (err, hash) {
+            if (err) throw err;
+            var passwordHash = hash;
+            var query = "INSERT INTO users(firstname, lastname, othernames, username,\n         email, phone, password, is_admin, registered) VALUES($1,$2,$3,$4,$5,$6,$7,$8,NOW()) RETURNING *";
+            var value = [firstname, lastname, othernames, username, email, phonenumber, passwordHash, isAdmin || false];
+            pool.query(query, value, function (err, result) {
+              if (err) {
                 return res.status(422).json({
-                  error: 'Unable to retrieve user'
-                });
-              }
-
-              if (resultEmail === email || resultRows.username) {
-                return res.status(404).json({
-                  error: 'Email or username exists already'
+                  error: "Unable to retrieve user, ".concat(err)
                 });
               }
 
               return res.json({
-                message: result.rows
+                message: result.rows,
+                passHash: result.rows[0].password
               });
             });
           });
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
   }, {
     key: "loginUser",
@@ -121,51 +121,60 @@ function () {
       var _req$body2 = req.body,
           password = _req$body2.password,
           username = _req$body2.username;
-      pool.connect(function (err, client, done) {
-        var query = 'SELECT * FROM users WHERE username=$1 AND password=$2';
-        var values = [username, password];
-        client.query(query, values, function (error, result) {
-          done();
 
-          if (result.rowCount === 0 || err) {
+      try {
+        var query = 'SELECT * FROM users WHERE username=$1';
+        var values = [username];
+        pool.query(query, values, function (error, result) {
+          if (result.rowCount === 0 || error) {
             return res.json({
               message: 'Pls, enter a valid username'
             });
           }
 
-          var admin = result.rows[0].is_admin;
+          _bcryptjs.default.compare(password, result.rows[0].password).then(function (isMatch) {
+            if (isMatch) {
+              var admin = result.rows[0].is_admin;
 
-          if (admin === true) {
-            _jsonwebtoken.default.sign({
-              username: username,
-              password: password,
-              admin: admin
-            }, process.env.secretKey, function (err, token) {
-              return res.json({
-                greeting: 'Welcome, Admin',
-                // Wrote the token to file so that it can be fetched from it
-                token: _fs.default.writeFile('token.txt', token, function (err) {
-                  if (err) throw err;
-                })
+              if (admin === true) {
+                _jsonwebtoken.default.sign({
+                  username: username,
+                  password: password,
+                  admin: admin
+                }, process.env.secretKey, function (err, token) {
+                  return res.json({
+                    greeting: 'Welcome, Admin',
+                    // Wrote the token to file so that it can be fetched from it
+                    token: _fs.default.writeFile('token.txt', token, function (err) {
+                      if (err) throw err;
+                    })
+                  });
+                });
+              }
+
+              _jsonwebtoken.default.sign({
+                username: username,
+                password: password,
+                admin: admin
+              }, process.env.secretKey, function (err, token) {
+                return res.json({
+                  greeting: 'Welcome, User',
+                  // Wrote the token to file so that it can be fetched from it
+                  token: _fs.default.writeFile('token.txt', token, function (err) {
+                    if (err) throw err;
+                  })
+                });
               });
-            });
-          }
-
-          _jsonwebtoken.default.sign({
-            username: username,
-            password: password,
-            admin: admin
-          }, process.env.secretKey, function (err, token) {
-            return res.json({
-              greeting: 'Welcome, User',
-              // Wrote the token to file so that it can be fetched from it
-              token: _fs.default.writeFile('token.txt', token, function (err) {
-                if (err) throw err;
-              })
-            });
+            } else {
+              res.status(400).json({
+                err: 'password is not correct'
+              });
+            }
           });
         });
-      });
+      } catch (err) {
+        throw err;
+      }
     }
   }]);
 

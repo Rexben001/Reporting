@@ -57,7 +57,6 @@ function () {
     value: function checkReports(req, res, next) {
       var validator = new _nodeInputValidator.default(req.body, {
         name: 'required|string',
-        status: 'required|string',
         latitude: 'required',
         longitude: 'required',
         description: 'required'
