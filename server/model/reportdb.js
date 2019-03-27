@@ -17,11 +17,11 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 // }
 
 pool.on('connect', () => {
-  // console.log('connected to the Database');
+    // console.log('connected to the Database');
 });
 
 const reports = async () => {
-  const reportTable = `
+    const reportTable = `
   CREATE TABLE IF NOT EXISTS 
   reports(
     id SERIAL PRIMARY KEY,
@@ -33,14 +33,14 @@ const reports = async () => {
     time DATE NOT NULL DEFAULT CURRENT_DATE,
     placedby INTEGER REFERENCES users(user_id)
   );`;
-  await pool.query(reportTable)
-    .then((res) => {
-      console.log('Report table created');
-    })
-    .catch((err) => {
-      console.log(err);
-      pool.end();
-    });
+    await pool.query(reportTable)
+        .then((res) => {
+            console.log('Report table created');
+        })
+        .catch((err) => {
+            console.log(err);
+            pool.end();
+        });
 };
 
 // pool.on('remove', () => {

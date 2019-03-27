@@ -1,6 +1,7 @@
-import reports from '../models/reportdb';
+import reports from '../model/reportdb';
 
 const { pool } = reports;
+// import models from '../models';
 
 
 /**
@@ -21,7 +22,7 @@ class ReporterControllers {
         if (err) {
           res.status(422).json({ error: 'Unable to retrieve user' });
         }
-        if (result.rows < 1) {
+        if (result.rowCount === 0) {
           res.status(404).send({
             status: 'Failed',
             message: 'No users information found',
@@ -32,6 +33,20 @@ class ReporterControllers {
           });
         }
       });
+      // models.Report.findAll()
+      //   .then((user) => {
+      //     res.status(200).json({
+      //       status: 200,
+      //       data: user
+      //     });
+      //   })
+      //   .catch((e) => {
+      //     // res.status(404).json({
+      //     //   status: 404,
+      //     //   message: e
+      //     // });
+      //     console.log(e)
+      //   });
     } catch (err) {
       throw err;
     }
@@ -53,7 +68,7 @@ class ReporterControllers {
         if (err) {
           res.status(422).json({ error: 'Unable to retrieve user' });
         }
-        if (result.rows < 1) {
+        if (result.rowCount === 0) {
           res.status(404).send({
             status: 'Failed',
             message: 'No users information found',
@@ -76,12 +91,12 @@ class ReporterControllers {
   static getAReport(req, res) {
     const id = parseInt(req.params.report_id, 10);
     try {
-      const query = `SELECT * FROM reports where placedby=${id};`;
+      const query = `SELECT * FROM reports where id=${id};`;
       pool.query(query, (err, result) => {
         if (err) {
           res.status(422).json({ error: 'Unable to retrieve user' });
         }
-        if (result.rows < 1) {
+        if (result.rowCount === 0) {
           res.status(404).send({
             status: 'Failed',
             message: 'No users information found',

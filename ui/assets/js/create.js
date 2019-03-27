@@ -32,7 +32,8 @@ function createPost(e) {
     }).then(res => res.json())
         .then(response => {
             if (response) {
-                redirect: window.location.replace("../create.html")
+                console.log(response)
+                // redirect: window.location.replace("../create.html")
             } else {
                 console.log('Invalid user');
             }

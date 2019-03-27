@@ -77,7 +77,8 @@ function signUp(e) {
   }).then(res => res.json())
     .then(response => {
       if (response) {
-        redirect: window.location.replace("../index.html")
+        console.log(response);
+        // redirect: window.location.replace("../index.html")
       } else {
         console.log('Invalid user');
       }
