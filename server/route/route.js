@@ -24,6 +24,8 @@ router.patch('/reports/:report_id/cancel', ReportControllers.deleteReport);
 router.post('/shops', Shops.createShop);
 router.get('/shops', Shops.findAllShops);
 router.get('/shops/:shop_id', Shops.findOneShop);
-
+router.patch('/shops/edit/:shop_id', Shops.udpateShop);
+router.delete('/shops/delete/:shop_id', Shops.deleteShop);
+router.post('/shops/search', Shops.searchShop);
 
 export default router;

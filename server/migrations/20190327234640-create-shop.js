@@ -1,39 +1,30 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('reports', {
+    return queryInterface.createTable("Shops", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      color: {
         type: Sequelize.STRING
       },
-      status: {
-        type: Sequelize.STRING
-      },
-      latitude: {
-        type: Sequelize.STRING
-      },
-      longitude: {
-        type: Sequelize.STRING
-      },
-      description: {
+      size: {
         type: Sequelize.STRING
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('reports');
+    return queryInterface.dropTable("Shops");
   }
 };
