@@ -2,7 +2,7 @@
   "development": {
     "username": "rex",
     "password": "73941995",
-    "database": "reportss",
+    "database": "reporting",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
